@@ -9,6 +9,7 @@ function App() {
   return (
     <>
   <div className='bg-white'>
+    
     <h1 className='text-center text-lg'> this is final project bro</h1>
   </div>
     </>

@@ -5,7 +5,7 @@ import { FaUnlockAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 function Login() {
   return (
-    <div className="flex justify-center items-center bg-[url(/images/project2.jpg)] bg-no-repeat bg-cover h-screen">
+    <div className="bg-[url(/images/project2.jpg)] bg-no-repeat bg-cover flex h-screen justify-center items-center ">
       <div className="bg-white p-8 flex flex-col rounded shadow-md w-96">
 
 <div className="flex flex-col items-center justify-center bg-green-600 p2 w-10 h-10 rounded m-auto text-white font-bold text-2xl mb-4"> 
@@ -16,23 +16,24 @@ function Login() {
     <p className="text-[gray] text-[14px] text-center">
         manage and track your minerals result in real time
     </p>
-
 </div>
 <form action="" className="flex flex-col gap-[20px]">
+  
     <div className="relative flex items-center">
     <MdOutlineEmail  className="absolute left-[10px]" />
     <input type="text" placeholder="Email" className="bg-gray-300 w-full pl-[30px] pt-[7px] pb-[7px] rounded-[5px] border-[1px] border-[lightgrey]" />
     </div>
     <div className="relative flex items-center">
     <FaUnlockAlt   className="absolute left-[10px]"  />
-    <input type="text" placeholder="Email" className="bg-gray-300 w-full pl-[30px] pt-[7px] pb-[7px] rounded-[5px] border-[1px] border-[lightgrey]" />
+    <input type="text" placeholder="Password" className="bg-gray-300 w-full pl-[30px] pt-[7px] pb-[7px] rounded-[5px] border-[1px] border-[lightgrey]" />
     </div>
+
     <div className="relative flex items-center">
         <Link className="absolute right-0 ">Forgot PassWord ?</Link>
     </div>
 
     <button className="bg-green-600 text-white p-[7px] rounded-[5px]">Login</button>
-    <Link className="text-center">Create Account</Link>
+    <Link to="/register" className="text-right">Create Account</Link>
 </form>
       </div>
     </div>
