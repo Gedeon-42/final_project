@@ -1,4 +1,83 @@
 @import "tailwindcss";
 *{
     font-family: 'DM Sans', sans-serif !important;
+ 
+}
+a {
+    text-decoration: none;
+font-family: 'DM Sans', sans-serif !important;
+}
+/* admin settings design */ */
+
+.admin-content1 {
+  flex-basis: 35%;
+  border-right: 1px solid lightgrey;
+}
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid lightgrey;
+}
+.settings-header-desc p {
+  font-size: 14px;
+}
+
+.settings-login {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgb(239, 235, 235);
+}
+.last-login p {
+  font-size: 14px;
+  color: var(--bs-gray);
+}
+.last-login h6 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: var(--bs-gray-dark);
+}
+
+.personal-information {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgb(239, 235, 235);
+}
+.personel-info-desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings-icon {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.admin-content2 {
+  flex-basis: 65%;
+}
+.admin-content2-header {
+  border-bottom: 1px solid rgb(239, 235, 235);
+}
+.admin-content2-header h1 {
+  font-size: 19px;
+  text-transform: capitalize;
+  color: var(--bs-gray-dark);
+  font-weight: 500;
+}
+.admin-content2-desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-bottom: 1px solid rgb(239, 235, 235);
+}
+.admin-content2-desc p {
+  font-size: 14px;
+}
+.admin-content2-desc h6 {
+  color: var(--bs-gray);
 }

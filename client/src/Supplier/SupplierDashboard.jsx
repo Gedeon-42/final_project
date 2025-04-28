@@ -54,20 +54,21 @@ const pieData = [
 
 const COLORS = ["#22c55e", "#ef4444", "#0ea5e9"];
 const SupplierDashboard = () => {
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
         <div className="grid grid-cols-4 mb-[30px] gap-4">
-  <div className="border border-gray-300 rounded-md p-2 bg-white h-35 ">
-    <div className="flex justify-between items-center">
-      <FaDollarSign className="text-[20px] text-gray-500" />
+  <div className="border border-gray-300 rounded-md p-2 bg-[#0ea5e9] h-35 ">
+    <div className="flex justify-between items-center text-white">
+      <FaDollarSign className="text-[20px] " />
       <BsThreeDots />
     </div>
-    <div className="flex flex-col gap-[5px]">
+    <div className="flex flex-col text-white gap-[5px]">
       <h1 className="text-[17px]">Rejected</h1>
       <h1 className="font-bold">20</h1>
     </div>
   </div>
-  <div className="border border-gray-300 rounded-md bg-[#22c55e] p-4 h-35 ">
+  <div className="border border-gray-300 rounded-md bg-green-600 p-4 h-35 ">
     <div className="flex justify-between items-center">
       <FaDollarSign className="text-[20px] text-white" />
       <BsThreeDots className="text-white" />
@@ -87,12 +88,12 @@ const SupplierDashboard = () => {
       <h1 className="font-bold ">10</h1>
     </div>
   </div>
-  <div className="border-gray-300 border rounded-md bg-white p-4 h-35">
+  <div className="border-gray-300 border rounded-md bg-red-600 p-4 h-35">
     <div className="flex justify-between items-center">
-      <FaDollarSign className="text-[20px] " />
+      <FaDollarSign className="text-[20px] text-white" />
       <BsThreeDots className="" />
     </div>
-    <div className="flex flex-col gap-[10px]">
+    <div className="flex flex-col gap-[10px] text-white">
       <h1 className=" text-[17px]">Pending Test</h1>
       <h1 className="font-bold">12</h1>
     </div>

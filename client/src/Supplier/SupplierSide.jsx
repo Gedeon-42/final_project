@@ -11,37 +11,37 @@ function SupplierSide() {
         <img src="/images/logo1.jpg" className='h-[60px] w-[70px]' alt="" />
         </div>
         <div className='flex flex-row gap-2 items-center '>
-            <FaHome className='text-[16px]'/>
-            <Link to="/supplier/dashboard" className=' text-[16px]'>Dashboard</Link>
+            <FaHome className='text-[15px]'/>
+            <Link to="/supplier/dashboard" className=' text-[15px] text-gray-600'>Dashboard</Link>
         </div>
         <div className='flex flex-row gap-2 items-center'>
-            <FaCoffee className='text-[16px]'/>
-            <Link className='text-[16px]'>Delivery Tracking</Link>
-        </div>
-        <div className='flex flex-row gap-2 items-center'>
-       
-            <SiCloudflareworkers className='text-[16px]' />
-            <Link className='text-[16px]'>Mineral  Result</Link>
+            <FaCoffee className='text-[15px]'/>
+            <Link to="/supplier/delivery" className='text-[15px]  text-gray-600'>Delivery Tracking</Link>
         </div>
         <div className='flex flex-row gap-2 items-center'>
        
-       <FaGalacticRepublic className='text-[16px]' />
-       <Link className='text-[16px]'> Report</Link>
+            <SiCloudflareworkers className='text-[15px]' />
+            <Link to="/supplier/result" className='text-[15px]  text-gray-600'>Mineral  Result</Link>
+        </div>
+        {/* <div className='flex flex-row gap-2 items-center'>
+       
+       <FaGalacticRepublic className='text-[15px]' />
+       <Link to="/supplier/report" className='text-[15px]  text-gray-600'> Report</Link>
+   </div> */}
+   <div className='flex flex-row gap-2 items-center'>
+       
+       <FaHeading className='text-[15px]' />
+       <Link to="/supplier/help" className='text-[15px]  text-gray-600'>Help And Support</Link>
+   </div>
+        <div className='flex flex-row gap-2 items-center'>
+       
+       <FaDollarSign className='text-[15px]' />
+       <Link to="/supplier/payment" className='text-[15px]  text-gray-600'>Payment Information</Link>
    </div>
    <div className='flex flex-row gap-2 items-center'>
        
-       <FaHeading className='text-[16px]' />
-       <Link className='text-[16px]'>Help And Support</Link>
-   </div>
-        <div className='flex flex-row gap-2 items-center'>
-       
-       <FaDollarSign className='text-[16px]' />
-       <Link className='text-[16px]'>Payment Information</Link>
-   </div>
-   <div className='flex flex-row gap-2 items-center'>
-       
-       <CiSettings className='text-[16px]' />
-       <Link className='text-[16px]'>Settings</Link>
+       <CiSettings className='text-[15px]' />
+       <Link to="/supplier/settings" className='text-[15px]  text-gray-600'>Settings</Link>
    </div>
     </div>
   )
