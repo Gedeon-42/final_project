@@ -9,10 +9,8 @@ function SupplierLayout() {
       <SupplierNav/>
       <SupplierSide/>
       <div className='ml-[200px]'>
- 
       <Outlet/>
-      </div>
-     
+      </div>  
     </div>
   )
 }

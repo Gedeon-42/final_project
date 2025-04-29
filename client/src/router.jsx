@@ -9,51 +9,98 @@ import Report from "./Supplier/Report";
 import Help from "./Supplier/Help";
 import Payment from "./Supplier/Payment";
 import Setting from "./Supplier/Setting";
+import DashboardLayout from "./Admin/DashboardLayout";
+import Dashboard from "./Admin/Dashboard";
+import AdminDeliveries from "./Admin/AdminDeliveries";
+import AdminSettings from "./Admin/AdminSettings";
+import AdminReport from "./Admin/AdminReport";
+import AdminResult from "./Admin/AdminResult";
+import AdminHelp from "./Admin/AdminHelp";
+import NotFound from "./pages/NotFound";
+import AdminPayment from "./Admin/AdminPayment";
 
 const router = createBrowserRouter([
-    {
-        path:"/supplier",
-        element:<SupplierLayout/>,
-        children:[
-            {
-                path:"/supplier/dashboard",
-                element:<SupplierDashboard/>
-            },
-            {
-                path:"/supplier/delivery",
-                element:<DeliveryTracking/>
-            },
-            {
-                path:"/supplier/result",
-                element:<Result/>
-            },
-            {
-                path:"/supplier/report",
-                element:<Report/>
-            },
-            {
-                path:"/supplier/help",
-                element:<Help/>
-            },
-            {
-                path:"/supplier/payment",
-                element:<Payment/>
-            },
-            {
-                path:"/supplier/settings",
-                element:<Setting/>
-            }
-        ]
-    },
-    {
-path:"/",
-element:<Login/>
+  {
+    path: "/admin",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "/admin/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/admin/deliveries",
+        element: <AdminDeliveries />,
+      },
+      {
+        path: "/admin/settings",
+        element: <AdminSettings />,
+      },
+      {
+        path: "/admin/report",
+        element: <AdminReport />,
+      },
+      {
+        path:"/admin/result",
+        element:<AdminResult/>
+      },
+      {
+        path: "/admin/help",
+        element:<AdminHelp/>
+      },
+      {
+        path:"/admin/payment",
+        element:<AdminPayment/>
+      }
+    ],
+  },
 
-    },
-    {
-        path:"/register",
-        element:<Register/>
-    }
-])
+  {
+    path: "/supplier",
+    element: <SupplierLayout />,
+    children: [
+      {
+        path: "/supplier/dashboard",
+        element: <SupplierDashboard />,
+      },
+      {
+        path: "/supplier/delivery",
+        element: <DeliveryTracking />,
+      },
+      {
+        path: "/supplier/result",
+        element: <Result />,
+      },
+      {
+        path: "/supplier/report",
+        element: <Report />,
+      },
+      {
+        path: "/supplier/help",
+        element: <Help />,
+      },
+      {
+        path: "/supplier/payment",
+        element: <Payment />,
+      },
+      {
+        path: "/supplier/settings",
+        element: <Setting />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path:"*",
+    element:<NotFound/>
+  },
+]);
 
-export default router
+export default router;
