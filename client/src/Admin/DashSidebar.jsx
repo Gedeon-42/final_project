@@ -1,5 +1,5 @@
 import React from 'react'
-import {  FaCoffee, FaDollarSign, FaGalacticRepublic, FaHeading, FaHome } from 'react-icons/fa'
+import {  FaCoffee, FaDollarSign, FaGalacticRepublic, FaHeading, FaHome, FaUserAlt } from 'react-icons/fa'
 import { SiCloudflareworkers } from 'react-icons/si'
 import { CiSettings } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
@@ -23,11 +23,11 @@ function DashSidebar() {
             <SiCloudflareworkers className='text-[15px]' />
             <Link to="/admin/result" className='text-[15px]  text-gray-600'>Mineral  Result</Link>
         </div>
-        {/* <div className='flex flex-row gap-2 items-center'>
+        <div className='flex flex-row gap-2 items-center'>
        
-       <FaGalacticRepublic className='text-[15px]' />
-       <Link to="/supplier/report" className='text-[15px]  text-gray-600'> Report</Link>
-   </div> */}
+       <FaUserAlt className='text-[15px]' />
+       <Link to="/admin/users" className='text-[15px]  text-gray-600'> Users</Link>
+   </div>
    <div className='flex flex-row gap-2 items-center'>
        
        <FaHeading className='text-[15px]' />

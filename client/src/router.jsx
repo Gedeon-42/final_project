@@ -18,6 +18,7 @@ import AdminResult from "./Admin/AdminResult";
 import AdminHelp from "./Admin/AdminHelp";
 import NotFound from "./pages/NotFound";
 import AdminPayment from "./Admin/AdminPayment";
+import DashUsers from "./Admin/DashUsers";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path:"/admin/result",
         element:<AdminResult/>
+      },
+      {
+        path:"/admin/users",
+        element:<DashUsers/>
       },
       {
         path: "/admin/help",
