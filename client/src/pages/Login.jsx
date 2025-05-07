@@ -33,7 +33,7 @@ function Login() {
     </div>
 
     <button className="bg-green-600 text-white p-[7px] rounded-[5px]">Login</button>
-    <Link to="/register" className="text-right">Create Account</Link>
+    <Link to="/register" className="text-right">Register</Link>
 </form>
       </div>
     </div>

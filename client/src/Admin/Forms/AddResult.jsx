@@ -6,7 +6,6 @@ function AddResult({ handleModel }) {
     <div className="fixed z-[50] top-0 left-0 right-0 bottom-0 flex justify-center items-center">
       {/* Background overlay */}
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-900 opacity-50"></div>
-
       {/* Modal content */}
       <form className="relative z-[60] space-y-4 bg-white p-6 rounded shadow-lg w-[800px] ">
         <FaTimes
@@ -108,7 +107,18 @@ function AddResult({ handleModel }) {
           <input type="text" placeholder='Name Of technician' className="w-full p-[5px] border-gray-400 border rounded" />
         </div>
         <div>
-            <button className='bg-green-600 text-white p-[7px] rounded'>Save</button>
+          <label className="block text-[15px] font-semibold mb-1">
+            Status <span className="text-red-500">*</span>
+          </label>
+          <select className="w-full p-[7px] bg-gray-100 rounded">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Rejected">Rejected</option>
+        
+          </select>
+        </div>
+        <div>
+            <button className='bg-green-600 cursor-pointer text-white p-[7px] rounded'>Save</button>
         </div>
             </div>
         </div>

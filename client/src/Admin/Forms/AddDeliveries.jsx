@@ -8,12 +8,14 @@ function AddDeliveries({ handleModel }) {
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-900 opacity-50"></div>
 
       {/* Modal content */}
-      <form className="relative z-[60] space-y-4 bg-white p-6 rounded shadow-lg w-[90%] max-w-lg">
+      <form className="relative z-[60] space-y-4 bg-white p-6 rounded shadow-lg w-[800px] ">
         <FaTimes
           className="absolute top-4 right-4 text-gray-500 cursor-pointer"
           onClick={handleModel}
         />
-         <div>
+        <div className='flex gap-[20px]'>
+        <div className='flex flex-col w-[50%] gap-[20px]'>
+        <div>
           <label className="block text-[15px] font-semibold mb-1">
             Supplier/Company Name <span className="text-red-500">*</span>
           </label>
@@ -59,12 +61,12 @@ function AddDeliveries({ handleModel }) {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <label className="block  text-[15px] font-semibold mb-1">
-              Gross Type <span className="text-red-500">*</span>
+              Gross Weight <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               className="w-full p-[5px]  text-[15px] border border-gray-200  rounded"
-              placeholder='Type of Minerals'
+              placeholder='Gross Weight'
             />
           </div>
           <div className="flex-1">
@@ -79,7 +81,9 @@ function AddDeliveries({ handleModel }) {
           </div>
         </div>
 
-        <div >
+          </div>
+          <div className='flex flex-col w-[50%] gap-[20px]'>
+          <div >
           <label className="block text-[15px] font-semibold mb-1">
             Date 
           </label>
@@ -98,8 +102,23 @@ function AddDeliveries({ handleModel }) {
           </select>
         </div>
         <div>
-            <button className='bg-green-600 text-white p-[7px] rounded'>Save</button>
+          <label className="block text-[15px] font-semibold mb-1">
+            Status <span className="text-red-500">*</span>
+          </label>
+          <select className="w-full p-[7px] bg-gray-100 rounded">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Rejected">Rejected</option>
+        
+          </select>
         </div>
+        <div>
+            <button className='bg-green-600 cursor-pointer text-white p-[7px] rounded'>Save</button>
+        </div>
+            </div>
+        </div>
+         
+       
       </form>
     </div>
   )

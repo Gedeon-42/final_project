@@ -40,8 +40,8 @@ function Register() {
             <Link className="absolute right-0 ">Forgot PassWord ?</Link>
         </div>
     
-        <button className="bg-green-600 text-white p-[7px] rounded-[5px]">Login</button>
-        <Link className="text-right">Login</Link>
+        <button className="bg-green-600 text-white p-[7px] rounded-[5px]">Register</button>
+        <Link to="/" className="text-right">Sign In</Link>
     </form>
           </div>
         </div>
