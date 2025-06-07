@@ -22,6 +22,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            
             //
             'mineral' => 'required|string',
             'date' => 'date|required',

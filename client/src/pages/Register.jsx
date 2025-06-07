@@ -34,7 +34,7 @@ function Register() {
         </div>
         <div className="relative flex items-center">
         <FaUnlockAlt   className="absolute left-[10px]"  />
-        <input type="text" placeholder="Password" className="bg-gray-300 w-full pl-[30px] pt-[7px] pb-[7px] rounded-[5px] border-[1px] border-[lightgrey]" />
+        <input type="password" placeholder="Password" className="bg-gray-300 w-full pl-[30px] pt-[7px] pb-[7px] rounded-[5px] border-[1px] border-[lightgrey]" />
         </div>
         <div className="relative flex items-center">
             <Link className="absolute right-0 ">Forgot PassWord ?</Link>

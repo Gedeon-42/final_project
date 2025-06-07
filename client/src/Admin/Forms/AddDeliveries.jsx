@@ -1,18 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import axiosClient from '../../axiosClient';
+import { toast, ToastContainer } from 'react-toastify';
 
 function AddDeliveries({ handleModel }) {
+   const [formData, setFormData] = useState({
+    owner: "",
+    mineral: "",
+    date: "",
+    email: "",
+    batch_number: "",
+    net_Weight: "",
+    gross_Weight: "",
+    grade: "",
+    status: "",
+  });
+
+  // Function to handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axiosClient.post("/orders", formData);
+   
+      toast.success("Result submitted successfully!");
+      setTimeout(() => {
+        handleModel()
+      }, 3000);
+      setFormData({
+        owner: "",
+        mineral: "",
+        date: "",
+        email: "",
+        batch_number: "",
+        gross_Weight:"",
+        net_Weight: "",
+        grade: "",
+    
+        status: "",
+      });
+
+    
+    } catch (error) {
+  toast.error("Failed to submit result.");
+      console.error(error);
+    }
+  };
   return (
     <div className="fixed z-[50] top-0 left-0 right-0 bottom-0 flex justify-center items-center">
       {/* Background overlay */}
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-900 opacity-50"></div>
 
+<ToastContainer/>
       {/* Modal content */}
-      <form className="relative z-[60] space-y-4 bg-white p-6 rounded shadow-lg w-[800px] ">
+      <form  onSubmit={handleSubmit} className="relative z-[60] space-y-4 bg-white p-6 rounded shadow-lg w-[800px] ">
         <FaTimes
           className="absolute top-4 right-4 text-gray-500 cursor-pointer"
           onClick={handleModel}
         />
+
         <div className='flex gap-[20px]'>
         <div className='flex flex-col w-[50%] gap-[20px]'>
         <div>
@@ -21,6 +73,9 @@ function AddDeliveries({ handleModel }) {
           </label>
           <input
             type="text"
+            name="owner"
+            value={formData.owner}
+            onChange={handleChange}
             placeholder="Enter  name"
             className="w-full p-[5px] text-[15px]  border border-gray-400 rounded"
           />
@@ -31,6 +86,10 @@ function AddDeliveries({ handleModel }) {
           </label>
           <input
             type="email"
+            name="email"
+            value={formData.email}
+
+            onChange={handleChange}
             placeholder="Enter Email"
             className="w-full p-[5px] border border-gray-400  rounded"
           />
@@ -43,6 +102,9 @@ function AddDeliveries({ handleModel }) {
             </label>
             <input
               type="text"
+              name="mineral"
+              value={formData.mineral}
+              onChange={handleChange}
               className="w-full p-[5px]  text-[15px] border border-gray-200  rounded"
               placeholder='Type of Minerals'
             />
@@ -53,6 +115,9 @@ function AddDeliveries({ handleModel }) {
             </label>
             <input
               type="text"
+              name="batch_number"
+              value={formData.batch_number}
+              onChange={handleChange}
               placeholder='Enter Batch Number'
               className="w-full p-[5px]  text-[15px] border border-gray-200 rounded"
             />
@@ -65,6 +130,9 @@ function AddDeliveries({ handleModel }) {
             </label>
             <input
               type="text"
+              name="gross_Weight"
+              value={formData.gross_Weight}
+              onChange={handleChange}
               className="w-full p-[5px]  text-[15px] border border-gray-200  rounded"
               placeholder='Gross Weight'
             />
@@ -75,6 +143,9 @@ function AddDeliveries({ handleModel }) {
             </label>
             <input
               type="text"
+              name="net_Weight"
+              value={formData.net_Weight}
+              onChange={handleChange}
               placeholder='Enter Batch Number'
               className="w-full p-[5px]  text-[15px] border border-gray-200 rounded"
             />
@@ -87,14 +158,15 @@ function AddDeliveries({ handleModel }) {
           <label className="block text-[15px] font-semibold mb-1">
             Date 
           </label>
-          <input type="Date" className="w-full p-[5px] border-gray-400 border rounded" />
+          <input type="Date" name="date" value={formData.date} onChange={handleChange} className="w-full p-[5px] border-gray-400 border rounded" />
         </div>
 
         <div>
           <label className="block text-[15px] font-semibold mb-1">
             Mineral Grade <span className="text-red-500">*</span>
           </label>
-          <select className="w-full p-[7px] bg-gray-100 rounded">
+          <select   name='grade' value={formData.grade} onChange={handleChange} className="w-full p-[7px] bg-gray-100 rounded">
+            <option value="">Select</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -105,7 +177,8 @@ function AddDeliveries({ handleModel }) {
           <label className="block text-[15px] font-semibold mb-1">
             Status <span className="text-red-500">*</span>
           </label>
-          <select className="w-full p-[7px] bg-gray-100 rounded">
+          <select  name='status' value={formData.status} onChange={handleChange} className="w-full p-[7px] bg-gray-100 rounded">
+           <option value=""> Select</option>
             <option value="Pending">Pending</option>
             <option value="Completed">Completed</option>
             <option value="Rejected">Rejected</option>

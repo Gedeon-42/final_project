@@ -122,6 +122,7 @@ const AdminResult = () => {
   <EditResult handeEditModel={handeEditModel}/>
   </>
 }
+
 {
   viewModel && <>
   <ViewResult handleViewModel={handleViewModel}/>

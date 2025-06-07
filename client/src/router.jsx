@@ -19,6 +19,7 @@ import AdminHelp from "./Admin/AdminHelp";
 import NotFound from "./pages/NotFound";
 import AdminPayment from "./Admin/AdminPayment";
 import DashUsers from "./Admin/DashUsers";
+import SupplierDash from "./Supplier/SupplierDash";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
         path: "/supplier/dashboard",
         element: <SupplierDashboard />,
       },
+    
       {
         path: "/supplier/delivery",
         element: <DeliveryTracking />,
@@ -94,6 +96,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+    {
+        path:"/supplier/dash",
+        element:<SupplierDash/>
+      },
   {
     path: "/",
     element: <Login />,
