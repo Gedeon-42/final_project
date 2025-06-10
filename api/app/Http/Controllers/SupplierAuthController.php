@@ -55,6 +55,7 @@ $randomPassword = str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
         'password' => 'required',
     ]);
 
+    
     $supplier = Supplier::where('email', $credentials['email'])->first();
 
     if (! $supplier || ! Hash::check($credentials['password'], $supplier->password)) {
@@ -63,7 +64,7 @@ $randomPassword = str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
 
     $token = $supplier->createToken('supplier-token')->plainTextToken;
 
-    return response()->json(['token' => $token]);
+    return response()->json(['token' => $token, 'supplier' => $supplier]);
 }
 
 }

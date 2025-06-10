@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import axiosClient from '../../axiosClient';
 import { toast, ToastContainer } from 'react-toastify';
+import { ClipLoader } from 'react-spinners';
 
 function AddDeliveries({ handleModel }) {
+    const [suppliers, setSuppliers] = useState([]);
    const [formData, setFormData] = useState({
-    owner: "",
+    supplier_id:"",
     mineral: "",
     date: "",
     email: "",
@@ -16,25 +18,46 @@ function AddDeliveries({ handleModel }) {
     status: "",
   });
 
+  const [loading,setLoading] = useState(false)
   // Function to handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+    useEffect(() => {
+        axiosClient.get('suppliers')
+            .then(res => setSuppliers(res.data))
+            .catch(err => console.error('Error fetching suppliers:', err));
+    }, []);
+
+    const handleSupplierChange = (e) => {
+  const selectedId = e.target.value;
+  const selectedSupplier = suppliers.find(s => String(s.id) === selectedId);
+  setFormData({
+    ...formData,
+    supplier_id: selectedId,
+    email: selectedSupplier?.email || "",
+    phone: selectedSupplier?.phone || ""
+  });
+};
+
+    
+
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+     setLoading(true)
 
     try {
       await axiosClient.post("/orders", formData);
-   
-      toast.success("Result submitted successfully!");
+    
+      toast.success("Delivery submitted successfully!");
       setTimeout(() => {
         handleModel()
       }, 3000);
       setFormData({
-        owner: "",
+        supplier_id: "",
         mineral: "",
         date: "",
         email: "",
@@ -49,9 +72,11 @@ function AddDeliveries({ handleModel }) {
     
     } catch (error) {
   toast.error("Failed to submit result.");
+    setLoading(false)
       console.error(error);
     }
   };
+
   return (
     <div className="fixed z-[50] top-0 left-0 right-0 bottom-0 flex justify-center items-center">
       {/* Background overlay */}
@@ -67,19 +92,19 @@ function AddDeliveries({ handleModel }) {
 
         <div className='flex gap-[20px]'>
         <div className='flex flex-col w-[50%] gap-[20px]'>
-        <div>
-          <label className="block text-[15px] font-semibold mb-1">
-            Supplier/Company Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="owner"
-            value={formData.owner}
-            onChange={handleChange}
-            placeholder="Enter  name"
-            className="w-full p-[5px] text-[15px]  border border-gray-400 rounded"
-          />
-        </div>
+       
+          <div>
+                    <label className="block  text-[15px] font-semibold mb-1">Supplier: <span className="text-red-500">*</span></label>
+                    <select className="w-full p-[5px] border border-gray-400  rounded" name="supplier_id"  value={formData.supplier_id}
+  onChange={handleSupplierChange} required>
+                        <option value="">Select a supplier</option>
+                        {suppliers.map(supplier => (
+                            <option key={supplier.id} value={supplier.id}>
+                                {supplier.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
         <div>
           <label className="block  text-[15px] font-semibold mb-1">
             Email address <span className="text-red-500">*</span>
@@ -87,7 +112,7 @@ function AddDeliveries({ handleModel }) {
           <input
             type="email"
             name="email"
-            value={formData.email}
+            value={formData.email || ""}
 
             onChange={handleChange}
             placeholder="Enter Email"
@@ -186,7 +211,9 @@ function AddDeliveries({ handleModel }) {
           </select>
         </div>
         <div>
-            <button className='bg-green-600 cursor-pointer text-white p-[7px] rounded'>Save</button>
+            <button className='bg-green-600 cursor-pointer text-white p-[7px] rounded'>
+              { loading ?(<><ClipLoader color='white' size={15} /></>):(<>save</>)}
+            </button>
         </div>
             </div>
         </div>

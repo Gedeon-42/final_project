@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Models\Order;
 use App\Models\Result;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Supplier extends Model
 {
-    use HasFactory;
+    use  HasApiTokens, HasFactory;
 
 
     protected $fillable = ['name', 'email', 'phone', 'password','district','province'];

@@ -21,7 +21,7 @@ class ResultAvailableMail extends Mailable
 
     public function __construct( Result $result)
     {
-        //
+        
         $this->result = $result;
     }
   

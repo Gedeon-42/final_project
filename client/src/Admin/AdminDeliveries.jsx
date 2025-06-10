@@ -1,56 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import AddDeliveries from './Forms/AddDeliveries';
 import EditDeliveries from './Forms/EditDeliveries';
-
-const jobData = [
-  {
-    id: 1,
-    type: ' cassiterit',
-    postedDate: '12-01-2023',
-    quanity: '450kg ',
-    site:"Luna",
-    status: 'Active',
-  },
-  {
-    id: 2,
-    type: 'cassiterit',
-    postedDate: '12-01-2024',
-    quanity: '450kg ',
-    site:"Rutongo",
-    status: 'Active',
-  }, 
-  {
-    id: 3,
-    type: ' coltan',
-    postedDate: '12-01-2024',
-    quanity: '450kg ',
-    site:"Rutongo",
-    status: 'Active',
-  },
-  {
-    id: 4,
-    type: ' cassiterit',
-    postedDate: '12-01-2025',
-    quanity: '450kg ',
-    site:"Rutongo",
-    status: 'Active',
-  },
-  {
-    id: 5,
-    type: ' coltan',
-    postedDate: '12-01-2024',
-    quanity: '450kg ',
-    site:"Rutongo",
-    status: 'Active',
-  },
-];
-
+import axiosClient from '../axiosClient';
+import { ClipLoader } from 'react-spinners';
 const AdminDeliveries = () => {
-
  const[model,setModal]= useState(false)
  const[editModel,setEditModal]=useState(false)
+ const [ orders, setOrders ] = useState([])
+   const [loading,setLoading] = useState(true)
+
+
+ useEffect(()=>{
+    const fetchOrders = async ()=>{
+    try {
+      const response = await axiosClient.get('/orders');
+      setOrders(response.data.orders.data);
+       setLoading(false)
+       console.log(response.data.orders.data) 
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
+  }
+ fetchOrders()
+ },[])
 
  const handleModel = ()=>{
   setModal(!model)
@@ -59,6 +33,16 @@ const AdminDeliveries = () => {
  const handeEditModel = ()=>{
   setEditModal(!editModel)
  }
+
+
+  if (loading) {
+      return (
+        <div className="h-[80vh] flex items-center justify-center">
+        <ClipLoader size={40} color={"#36d7b7"} />
+    </div>
+      );
+    }
+
   return (
     <div className="overflow-x-auto relative">
       <Link onClick={handleModel} className='text-white bg-green-600 p-[7px] float-right m-[10px] border rounded-[7px] '>Add new</Link>
@@ -76,31 +60,39 @@ const AdminDeliveries = () => {
           <tr>
             <th className="px-4 py-2  text-gray-700 text-left">No</th>
             <th className="px-4 py-2 text-gray-700 text-left">Mineral</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Delevery Date</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Quantity</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Site</th>
+                 <th className="px-4 py-2 text-gray-700 text-left">Supplier</th>
+                        <th className="px-4 py-2 text-gray-700 text-left">Email</th>
+            <th className="px-4 py-2 text-gray-700 text-left"> Date</th>
+            <th className="px-4 py-2 text-gray-700 text-left">Net Weight</th>
+                 <th className="px-4 py-2 text-gray-700 text-left">Batch No</th>
+            <th className="px-4 py-2 text-gray-700 text-left">District</th>
+              <th className="px-4 py-2 text-gray-700 text-left">Province</th>
             <th className="px-4 py-2 text-gray-700 text-left">Status</th>
             <th className="px-4 py-2 text-gray-700 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {jobData.map((job, index) => (
-            <tr key={job.id} className="border-b border-sky-500 hover:bg-gray-50">
+          {orders && orders.map((item, index) => (
+            <tr key={item.id} className="border-b border-sky-500 hover:bg-gray-50">
               <td className="px-4 py-2 text-[14px]">{index + 1}</td>
 
-              <td className="px-4 py-2 text-[14px]">{job.type}</td>
-              <td className="px-4 py-2 text-[14px]">{job.postedDate}</td>
-              <td className="px-4 py- text-[14px]">{job.quanity}</td>
-              <td className="px-4 py- text-[14px]">{job.site}</td>
+              <td className="px-4 py-2 text-[14px]">{item.mineral}</td>
+              <td className="px-4 py-2 text-[14px]">{item.supplier_name}</td>
+              <td className="px-4 py- text-[14px]">{item.supplier_email}</td>
+              <td className="px-4 py- text-[14px]">{item.date}</td>
+                <td className="px-4 py- text-[14px]">{item.net_weight}</td>
+                           <td className="px-4 py- text-[14px]">{item.batch_number}</td>
+              <td className="px-4 py-2 text-[14px]">{item.district}</td>
+              <td className="px-4 py-2 text-[14px]">{item.province}</td>
               <td className="px-4 py-2 text-[14px]">
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    job.status === 'Active'
+                    item.status === 'Active'
                       ? 'bg-green-100 text-green-600'
                       : 'bg-red-100 text-red-600'
                   }`}
                 >
-                  {job.status}
+                  {item.status}
                 </span>
               </td>
               <td className="px-4 py-2 flex space-x-2">

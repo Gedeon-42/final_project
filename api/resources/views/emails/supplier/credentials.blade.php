@@ -8,7 +8,7 @@ Your supplier account has been created.
 - **Email:** {{ $email }}
 - **Password:** {{ $password }}
 
-@component('mail::button', ['url' => 'https://your-app-url.com/login'])
+@component('mail::button', ['url' => 'http://localhost:3000'])
 Login Now
 @endcomponent
 

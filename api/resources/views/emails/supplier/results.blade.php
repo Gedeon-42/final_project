@@ -1,18 +1,18 @@
 @component('mail::message')
-# Hello {{ $result->delivery->supplier->name }},
+# Hello {{ $result->result?->supplier?->name ?? 'Supplier' }},
 
 Your mineral delivery result is now available.
 
 **Delivery Details:**
-- **Mineral Type:** {{ $result->delivery->mineral_type }}
-- **Weight:** {{ $result->delivery->weight }} kg
-- **Delivered At:** {{ $result->delivery->created_at->format('d M Y') }}
+- **Mineral Type:** {{ $result->result?->mineral_type ?? '-' }}
+- **Weight:** {{ $result->result?->weight ?? '-' }} kg
+- **Delivered At:** {{ $result->result?->created_at?->format('d M Y') ?? '-' }}
 
 **Result Analysis:**
 
 {{-- {{ $result->analysis }} --}}
 
-@component('mail::button', ['url' => 'https://your-app-url.com/login'])
+@component('mail::button', ['url' => 'http://localhost:3000/'])
 View in Portal
 @endcomponent
 

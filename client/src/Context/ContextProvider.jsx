@@ -13,7 +13,7 @@ const stateContext = createContext({
 
 export const ContextProvider = ({ children }) => {
   const [token, _setToken] = useState(localStorage.getItem("Token"));
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [supplier, setUser] = useState(JSON.parse(localStorage.getItem("Supplier")));
 
   const apiUrl= env.REACT_APP_API_URL
 
@@ -28,12 +28,12 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  const setUserState = (user) => {
-    setUser(user);
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
+  const setUserState = (supplier) => {
+    setUser(supplier);
+    if (supplier) {
+      localStorage.setItem("Supplier", JSON.stringify(supplier));
     } else {
-      localStorage.removeItem("user");
+      localStorage.removeItem("Supplier");
     }
   };
   const SignupMutation = useMutation({
@@ -62,7 +62,7 @@ export const ContextProvider = ({ children }) => {
 
   const LoginMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await axiosClient .post("/login", data);
+      const res = await axiosClient .post("/supplier/login", data);
       return res.data;
     },
     onError: (err) => {
@@ -80,13 +80,9 @@ export const ContextProvider = ({ children }) => {
     },
     onSuccess: (data) => {
       console.log("Login success:", data);
-      setUserState(data.user);
+      setUserState(data.supplier);
       setToken(data.token);
-      if (data.user.is_admin === 1) {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/";
-      }
+    window.location.href = "/supplier/dash";
     },
   });
 
@@ -95,7 +91,7 @@ export const ContextProvider = ({ children }) => {
       value={{
         token,
         setToken,
-        user,
+        supplier,
         setUser: setUserState,
         SignupMutation,
         LoginMutation,

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import axiosClient from "../../axiosClient";
 import { toast, ToastContainer } from "react-toastify";
 function AddResult({ handleModel }) {
+  const [suppliers, setSuppliers] = useState([]);
   // State to manage form data
   const [formData, setFormData] = useState({
-    owner: "",
+    supplier_id: "",
     mineral: "",
     date: "",
     email: "",
@@ -23,16 +24,34 @@ function AddResult({ handleModel }) {
     setFormData({ ...formData, [name]: value });
   };
 
+  useEffect(() => {
+    axiosClient
+      .get("suppliers")
+      .then((res) => setSuppliers(res.data))
+      .catch((err) => console.error("Error fetching suppliers:", err));
+  }, []);
+
+  const handleSupplierChange = (e) => {
+    const selectedId = e.target.value;
+    const selectedSupplier = suppliers.find((s) => String(s.id) === selectedId);
+    setFormData({
+      ...formData,
+      supplier_id: selectedId,
+      email: selectedSupplier?.email || "",
+      phone: selectedSupplier?.phone || "",
+    });
+  };
+
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await axiosClient.post("/results", formData);
-   
-      toast.success("Result submitted successfully!");
+
+      toast.success("Recorded submitted successfully!");
       setFormData({
-        owner: "",
+        supplier_id: "",
         mineral: "",
         date: "",
         email: "",
@@ -46,7 +65,7 @@ function AddResult({ handleModel }) {
 
       // handleModel()
     } catch (error) {
-      alert("Failed to submit result.");
+      toast.error("Error submitting result!");
       console.error(error);
     }
   };
@@ -54,7 +73,7 @@ function AddResult({ handleModel }) {
   return (
     <div className="fixed z-[50] top-0 left-0 right-0 bottom-0 flex justify-center items-center">
       {/* Background overlay */}
-      <ToastContainer/>
+      <ToastContainer />
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-900 opacity-50"></div>
       {/* Modal content */}
       <form
@@ -68,18 +87,25 @@ function AddResult({ handleModel }) {
         <div className="flex gap-[20px]">
           <div className="flex flex-col w-[50%] gap-[20px]">
             <div>
-              <label className="block text-[15px] font-semibold mb-1">
-                Supplier/Company Name <span className="text-red-500">*</span>
+              <label className="block  text-[15px] font-semibold mb-1">
+                Supplier: <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                onChange={handleChange}
-                value={formData.owner}
-                name="owner"
-                placeholder="Enter  name"
-                className="w-full p-[5px] text-[15px]  border border-gray-400 rounded"
-              />
+              <select
+                className="w-full p-[5px] border border-gray-400  rounded"
+                name="supplier_id"
+                value={formData.supplier_id}
+                onChange={handleSupplierChange}
+                required
+              >
+                <option value="">Select a supplier</option>
+                {suppliers.map((supplier) => (
+                  <option key={supplier.id} value={supplier.id}>
+                    {supplier.name}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div>
               <label className="block  text-[15px] font-semibold mb-1">
                 Email address <span className="text-red-500">*</span>
@@ -88,7 +114,7 @@ function AddResult({ handleModel }) {
                 type="email"
                 placeholder="Enter Email"
                 onChange={handleChange}
-                value={formData.email}
+                value={formData.email || ""}
                 name="email"
                 className="w-full p-[5px] border border-gray-400  rounded"
               />

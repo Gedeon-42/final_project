@@ -7,6 +7,8 @@ import {
   
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RecentRequest from './RecentRequest';
+import Messages from './Messages';
 
 const SupplierDash = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -162,7 +164,7 @@ const SupplierDash = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Talent Viewed</p>
+              <p className="text-sm font-medium text-gray-600">Results</p>
               <p className="text-2xl font-bold text-gray-900">{stats.talentViewed}</p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
@@ -197,49 +199,10 @@ const SupplierDash = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <p className="text-lg font-semibold text-gray-900 mb-4">Recent Requests</p>
-          <div className="space-y-4">
-            {recentRequests.slice(0, 3).map((request) => (
-              <div key={request.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-2">
-                    <p className="font-medium text-gray-900">Talent #{request.talentId}</p>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1 ${getStatusColor(request.status)}`}>
-                      {getStatusIcon(request.status)}
-                      <span>{request.status.replace('_', ' ')}</span>
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600">{request.position}</p>
-                  <p className="text-xs text-gray-500">{request.budget}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <p className="text-lg font-semibold text-gray-900 mb-4">Messages</p>
-          <div className="space-y-4">
-            {conversations.slice(0, 3).map((conv) => (
-              <div key={conv.id} className="flex items-start space-x-3 p-3 border border-gray-100 rounded-lg">
-                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-gray-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2">
-                    <p className="font-medium text-gray-900">Talent #{conv.talentId}</p>
-                    {conv.unread && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
-                  </div>
-                  <p className="text-sm text-gray-600 truncate">{conv.lastMessage}</p>
-                  <p className="text-xs text-gray-500">{conv.timestamp}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <RecentRequest recentRequests={recentRequests} getStatusColor={getStatusColor} getStatusIcon={getStatusIcon}/>
+        <Messages conversations={conversations} User={User}/>
+       </div>
     </div>
   );
 
@@ -601,9 +564,8 @@ const SupplierDash = () => {
                         
                           
                           <div className="hidden md:flex space-x-6">
-                          <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to='/dashboard'>Dashboard</Link>
-                          <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to="/find-talents">Find Talents</Link>
-                        
+                          {/* <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to='/dashboard'>Dashboard</Link>
+                          <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to="/find-talents">Find Talents</Link> */}
                           </div>
                         </div>
             
@@ -626,35 +588,7 @@ const SupplierDash = () => {
                       </div>
                     </div>
                   </nav>
-      {/* <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Employer Dashboard</h1>
-              <p className="text-gray-600">Manage your talent acquisition activities</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button className="relative p-2 text-gray-600 hover:text-gray-900">
-                <Bell className="w-6 h-6" />
-                {notifications > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {notifications}
-                  </span>
-                )}
-              </button>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-white" />
-                </div>
-                <div className="text-sm">
-                  <div className="font-medium text-gray-900">{profileData.companyName}</div>
-                  <div className="text-gray-500">Employer</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header> */}
+   
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">

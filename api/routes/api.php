@@ -31,7 +31,9 @@ Route::get('/suppliers', [SupplierAuthController::class, 'index']);
 
 Route::post('/orders',[OrderController::class, 'store']);
 Route::get('/orders',[OrderController::class, 'index']);
-Route::get('/orders/{id}',[OrderController::class, 'show']);
+
+Route::get('/suppliers/{supplierId}/orders', [OrderController::class, 'ordersBySupplier']);
+
 Route::put('/orders/{id}',[OrderController::class, 'update']);
 Route::delete('/orders/{id}',[OrderController::class, 'destroy']);
 Route::post('/orders/{id}/approve',[OrderController::class, 'approve']);

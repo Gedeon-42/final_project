@@ -72,13 +72,41 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-        $order= Order::findOrFail($id);
-        return response()->json($order);
-    }
 
+public function ordersBySupplier($supplierId)
+{
+    $orders = Order::where('supplier_id', $supplierId)
+        ->orderBy('id', 'desc')
+        ->with('supplier')
+        ->get();
+
+    // Optionally format the orders as in your index method
+    $orders = $orders->map(function ($order) {
+        return [
+            'id' => $order->id,
+            'supplier_name' => $order->supplier ? $order->supplier->name : null,
+            'supplier_email' => $order->supplier ? $order->supplier->email : null,
+            'district' => $order->supplier ? $order->supplier->district : null,
+            'province' => $order->supplier ? $order->supplier->province : null,
+            'mineral' => $order->mineral,
+            'batch_number' => $order->batch_number,
+            'date' => $order->date,
+            'quantity' => $order->quantity,
+            'gross_weight' => $order->gross_weight,
+            'net_weight' => $order->net_Weight,
+            'grade' => $order->grade,
+            'status' => $order->status,
+            'created_at' => $order->created_at,
+            'updated_at' => $order->updated_at,
+        ];
+    });
+
+    return response()->json([
+        'message' => 'Orders for supplier retrieved successfully',
+        'orders' => $orders
+    ]);
+}
+   
     /**
      * Update the specified resource in storage.
      */
