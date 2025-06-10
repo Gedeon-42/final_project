@@ -3,9 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SupplierAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+Route::post('/supplier/register', [SupplierAuthController::class, 'register']); // By admin
+Route::post('/supplier/login', [SupplierAuthController::class, 'login']);
+Route::get('/suppliers', [SupplierAuthController::class, 'index']); 
+
 Route::post('/orders',[OrderController::class, 'store']);
 Route::get('/orders',[OrderController::class, 'index']);
 Route::get('/orders/{id}',[OrderController::class, 'show']);
@@ -33,6 +40,7 @@ Route::post('/orders/{id}/complete',[OrderController::class, 'complete']);
 
 // Result Routes
 Route::post('/results',[ResultController::class, 'store']);
+//  Route::post('/results/{delivery_id}', [ResultController::class, 'store']);
 Route::get('/results',[ResultController::class, 'index']);
 Route::get('/results/{id}',[ResultController::class, 'show']);
 Route::put('/results/{id}',[ResultController::class, 'update']);

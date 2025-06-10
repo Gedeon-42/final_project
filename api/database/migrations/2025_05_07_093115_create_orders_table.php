@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('mineral');
             $table->date('date');
-            $table->string('owner');
             $table->string('email');
             $table->string('batch_number');
             $table->string('gross_weight')->nullable();
             $table->string('net_weight');
             $table->string('grade');
+            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['Pending', 'Completed', 'Rejected'])->default('Pending');
 
             $table->timestamps();

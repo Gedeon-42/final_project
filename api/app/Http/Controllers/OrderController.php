@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Supplier;
+use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use App\Models\Order;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -15,11 +16,36 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $orders = Order::query()->orderBy('id','desc');
-        return response()->json([
-            'message' => 'Orders retrieved successfully',
-            'orders' => $orders->paginate(10)
-        ]);
+      
+         $orders = Order::with('supplier')->orderBy('id', 'desc')->paginate(10);
+
+    // Optionally, format the orders to include supplier name directly
+    $orders->getCollection()->transform(function ($order) {
+        return [
+            'id' => $order->id,
+            'supplier_name' => $order->supplier ? $order->supplier->name : null,
+            'supplier_email' => $order->supplier ? $order->supplier->email : null,
+            'district' => $order->supplier ? $order->supplier->district : null,
+            'province' => $order->supplier ? $order->supplier->province : null,
+            // add other order fields as needed
+            'mineral' => $order->mineral,
+            'batch_number' => $order->batch_number,
+            'date' => $order->date,
+            'quantity' => $order->quantity,
+            'gross_weight' => $order->gross_weight,
+            'net_weight' => $order->net_Weight,
+            'grade' => $order->grade,
+            'status' => $order->status,
+            'created_at' => $order->created_at,
+            'updated_at' => $order->updated_at,
+            // ... add more fields as needed
+        ];
+    });
+
+    return response()->json([
+        'message' => 'Orders retrieved successfully',
+        'orders' => $orders
+    ]);
     }
 
     /**
@@ -28,9 +54,15 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         //
+        
         $data = $request->validated();
         
-        $orders = Order::create($data);
+        $supplier = Supplier::findOrFail($data['supplier_id']);
+    $orders = $supplier->orders()->create($data);
+
+   
+        
+    // $orders = $request->supplier()->deliveries()->create($data);
         return response()->json([
             'message'=>'orders created successfully',
            'orders' =>$orders 

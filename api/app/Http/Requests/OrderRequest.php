@@ -26,7 +26,7 @@ class OrderRequest extends FormRequest
             //
             'mineral' => 'required|string',
             'date' => 'date|required',
-            'owner' => 'required|string',
+            'supplier_id' => 'required',
             'email' => 'required|email',
             'batch_number' => 'required|string',
             'gross_weight' => "nullable|string",

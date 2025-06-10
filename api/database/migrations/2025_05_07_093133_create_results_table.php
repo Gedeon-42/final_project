@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('net_weight');
             $table->string('technician');
             $table->string('grade');
+             $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['Pending', 'Completed', 'Rejected'])->default('Pending');
             $table->timestamps();
         });

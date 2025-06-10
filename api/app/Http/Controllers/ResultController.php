@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ResultRequest;
-use App\Http\Requests\UpdateResultRequest;
+use App\Models\Order;
 use App\Models\Result;
 use Illuminate\Http\Request;
-
+use App\Mail\ResultAvailableMail;
+use App\Http\Requests\ResultRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\UpdateResultRequest;
+use App\Models\Supplier;
 
 class ResultController extends Controller
 {
@@ -31,12 +34,16 @@ class ResultController extends Controller
     {
         //
         $data = $request->validated();
-        
-        $results = Result::create($data);
-        return response()->json([
-            'message'=>'result created successfully',
-           'results' =>$results 
-        ]);
+        $supplier = Supplier::findOrFail($data['supplier_id']);
+        $results = $supplier->results()->create($data);
+     
+// Send email to supplier
+    Mail::to($results->supplier->email)->send(new ResultAvailableMail($results));
+
+    $results->update(['status' =>'completed']);
+    return response()->json(['message' => 'Result created and supplier notified']);
+
+      
     }
 
     /**
