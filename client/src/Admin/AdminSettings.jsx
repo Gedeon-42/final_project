@@ -4,7 +4,7 @@ import { FaAngleRight, FaLock, FaUser, FaUserAlt } from 'react-icons/fa'
 
 function AdminSettings() {
   return (
-    <div className="flex gap-[40px] h-[80vh] justify-between items-center mt-4 p-[40px]">
+    <div className="flex gap-[40px] h-[80vh] justify-between  mt-4 p-[40px]">
     <div className="admin-content1">
         <div className="settings-header">
             <FaUser  className='text-gray-700'/>

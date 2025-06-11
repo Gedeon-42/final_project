@@ -128,39 +128,39 @@ const AdminResult = () => {
   <ViewResult handleViewModel={handleViewModel}/>
   </>
 }
-      <table className="min-w-full bg-white m-4 border border-gray-200  rounded-lg">
-        <thead className="bg-gray-100">
+      <table className="min-w-full m-4 border border-gray-200  rounded-lg">
+        <thead className="bg-gray-50">
           <tr>
-            <th className="px-4 py-2  text-gray-700 text-left">No</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Mineral</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Date</th>
-            <th className="px-4 py-2 text-gray-700 text-left">weight</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mineral</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">weight</th>
             {/* <th className="px-4 py-2 text-gray-700 text-left">Grade</th> */}
-            <th className="px-4 py-2 text-gray-700 text-left">Methodoly</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Methodoly</th>
             {/* <th className="px-4 py-2 text-gray-700 text-left">Test Performed</th> */}
-            <th className="px-4 py-2 text-gray-700 text-left">Supplier</th>
-            <th className="px-4 py-2 text-gray-700 text-left">email</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">email</th>
             
-            <th className="px-4 py-2 text-gray-700 text-left">Technician</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Status</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Actions</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Technician</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody>
           {jobData.map((job, index) => (
-            <tr key={job.id} className="border-b border-sky-500 hover:bg-gray-50">
-              <td className="px-4 py-2 text-[14px]">{index + 1}</td>
+            <tr key={job.id} className="border-b border-gray-300 hover:bg-gray-50">
+              <td className="px-4 py-[4px] text-[14px]">{index + 1}</td>
 
-              <td className="px-4 py-2 text-[14px]">{job.type}</td>
-              <td className="px-4 py-2 text-[14px]">{job.postedDate}</td>
+              <td className="px-4 py-[4px] text-[14px]">{job.type}</td>
+              <td className="px-4 py-[4px] text-[14px]">{job.postedDate}</td>
               <td className="px-4 py- text-[14px]">{job.quanity}</td>
               {/* <td className="px-4 py- text-[14px]">{job.grade}</td> */}
                 <td className="px-4 py- text-[14px]">{job.methodoly}</td>
                 {/* <td className="px-4 py- text-[14px]">{job.test}</td> */}
-                <td className="px-4 py- text-[14px]">{job.owner}</td>
-                <td className="px-4 py- text-[14px]">{job.owner_email}</td>
-                <td className="px-4 py- text-[14px]">{job.name}</td>
-              <td className="px-4 py-2 text-[14px]">
+                <td className="px-4 py-[4px] text-[14px]">{job.owner}</td>
+                <td className="px-4 py-[4px] text-[14px]">{job.owner_email}</td>
+                <td className="px-4 py-[4px] text-[14px]">{job.name}</td>
+              <td className="px-4 py-[4px] text-[14px]">
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-semibold ${
                     job.status === 'Active'
@@ -172,7 +172,7 @@ const AdminResult = () => {
                   {job.status}
                 </span>
               </td>
-              <td className="px-4 py-2 flex space-x-2">
+              <td className="px-4 py-[4px] flex space-x-2">
                 <button onClick={handleViewModel} className="p-2 cursor-pointer bg-green-100 rounded-full text-green-600 hover:bg-green-200">
                   <FaEye />
                 </button>

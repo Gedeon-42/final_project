@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { 
   User, Bell, Settings, Search, Plus, Eye, MessageCircle, Calendar, 
   TrendingUp, Users, FileText, DollarSign, Clock, CheckCircle, 
@@ -24,6 +24,7 @@ import {
 } from "recharts";
 import { BsThreeDots } from "react-icons/bs";
 import { FaCaretUp, FaDollarSign } from "react-icons/fa";
+import axiosClient from "../axiosClient";
 const barData = [
   { name: "january", expense: 300 },
   { name: "February", expense: 519 },
@@ -68,112 +69,22 @@ const COLORS = ["#22c55e", "#ef4444", "#0ea5e9"];
     avgResponseTime: '2'
   };
 
-  const recentRequests = [
-    {
-      id: 1,
-      talentId: 'T001',
-      position: 'Casual Worker',
-      status: 'pending',
-      submitted: '2024-06-01',
-      budget: '$5000-$7000',
-      responses: 0
-    },
-    {
-      id: 2,
-      talentId: 'T015',
-      position: 'Veterinary',
-      status: 'accepted',
-      submitted: '2024-05-28',
-      budget: '$3000-$4500',
-      responses: 1
-    },
-    {
-      id: 3,
-      talentId: 'T008',
-      position: 'Casual Worker',
-      status: 'declined',
-      submitted: '2024-05-25',
-      budget: '$2500-$3500',
-      responses: 1
-    },
-    {
-      id: 4,
-      talentId: 'T023',
-      position: 'Agronomist',
-      status: 'in_progress',
-      submitted: '2024-05-20',
-      budget: '$6000-$8000',
-      responses: 2
-    }
-  ];
 
-  const conversations = [
-    {
-      id: 1,
-      talentId: 'T015',
-      position: 'UI/UX Designer',
-      lastMessage: 'I\'d be happy to discuss the project timeline...',
-      timestamp: '2 hours ago',
-      unread: true
-    },
-    {
-      id: 2,
-      talentId: 'T023',
-      position: 'Full Stack Developer',
-      lastMessage: 'The project requirements look interesting...',
-      timestamp: '1 day ago',
-      unread: false
-    },
-    {
-      id: 3,
-      talentId: 'T007',
-      position: 'Marketing Manager',
-      lastMessage: 'Thank you for considering my proposal...',
-      timestamp: '3 days ago',
-      unread: false
-    }
-  ];
-
-  const savedTalents = [
-    {
-      id: 'T001',
-      skills: ['Fertilizer', 'Management', 'Peciticides'],
-      experience: '5+ years',
-      rating: 4.8,
-      hourlyRate: '$45-65',
-      savedDate: '2024-05-30'
-    },
-    {
-      id: 'T009',
-      skills: ['Fertilizer', 'Management', 'Peciticides'],
-      experience: '4+ years',
-      rating: 4.7,
-      hourlyRate: '$50-70',
-      savedDate: '2024-05-28'
-    }
-  ];
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'accepted': return 'bg-green-100 text-green-800';
-      case 'declined': return 'bg-red-100 text-red-800';
-      case 'in_progress': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'pending': return <Clock className="w-4 h-4" />;
-      case 'accepted': return <CheckCircle className="w-4 h-4" />;
-      case 'declined': return <XCircle className="w-4 h-4" />;
-      case 'in_progress': return <AlertCircle className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
-    }
-  };
 
 const Dashboard = () => {
+ const [totalTalents, setTotalTalents] = useState(0);
+
+    useEffect(() => {
+        axiosClient
+            .get("/orders/total")
+            .then((response) => {
+                setTotalTalents(response.data);
+                console.log("Total Talents:", response.data);
+              
+            })
+            .catch((error) => console.error(error));
+    }, []);
+
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -183,8 +94,8 @@ const Dashboard = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Active Requests</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.activeRequests}</p>
+              <p className="text-sm font-medium text-gray-600">Active Samples</p>
+              <p className="text-2xl font-bold text-gray-900">{totalTalents.total_orders}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-full">
               <FileText className="w-6 h-6 text-blue-600" />
@@ -195,7 +106,7 @@ const Dashboard = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Talent Viewed</p>
+              <p className="text-sm font-medium text-gray-600"> Active Results</p>
               <p className="text-2xl font-bold text-gray-900">{stats.talentViewed}</p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
@@ -207,7 +118,7 @@ const Dashboard = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Response Rate</p>
+              <p className="text-sm font-medium text-gray-600">Active Suppliers</p>
               <p className="text-2xl font-bold text-gray-900">{stats.responseRate}%</p>
             </div>
             <div className="bg-purple-100 p-3 rounded-full">
@@ -229,12 +140,13 @@ const Dashboard = () => {
         </div>
       </div>
 
+
     
     </div>
       <div className="flex gap-6 mt-6 w-[100%]">
         {/* Top 5 Expense Source */}
         <div className="col-span-2 w-[70%] bg-white p-4 rounded-2xl shadow">
-          <h2 className="text-lg font-semibold mb-4">Top 5 Expense Source</h2>
+          <h2 className="text-lg font-semibold mb-4">Results Chart</h2>
           <ResponsiveContainer  height={300}>
             <BarChart data={barData.slice(0, 12)}>
             <CartesianGrid strokeDasharray="3 3" />

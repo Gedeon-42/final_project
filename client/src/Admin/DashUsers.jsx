@@ -74,14 +74,14 @@ const DashUsers = () => {
       <table className="w-full bg-white my-8 mx-3 border border-gray-200  rounded-lg">
         <thead className="bg-gray-100">
           <tr>
-            <th className="px-4 py-2  text-gray-700 text-left">No</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Name</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Email</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Phone</th>
-            <th className="px-4 py-2 text-gray-700 text-left">District</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Province</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">District</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Province</th>
 
-            <th className="px-4 py-2 text-gray-700 text-left">Actions</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody>

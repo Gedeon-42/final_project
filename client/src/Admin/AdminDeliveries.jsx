@@ -11,9 +11,7 @@ const AdminDeliveries = () => {
  const [ orders, setOrders ] = useState([])
    const [loading,setLoading] = useState(true)
 
-
- useEffect(()=>{
-    const fetchOrders = async ()=>{
+  const fetchOrders = async ()=>{
     try {
       const response = await axiosClient.get('/orders');
       setOrders(response.data.orders.data);
@@ -23,6 +21,8 @@ const AdminDeliveries = () => {
       console.error('Error fetching orders:', error);
     }
   }
+ useEffect(()=>{
+  
  fetchOrders()
  },[])
 
@@ -44,10 +44,10 @@ const AdminDeliveries = () => {
     }
 
   return (
-    <div className="overflow-x-auto relative">
+    <div className="max-w-full overflow-x-auto relative">
       <Link onClick={handleModel} className='text-white bg-green-600 p-[7px] float-right m-[10px] border rounded-[7px] '>Add new</Link>
  {model && <>
- <AddDeliveries handleModel={handleModel}/>
+ <AddDeliveries fetchOrders={fetchOrders} handleModel={handleModel}/>
  </>}
 {/* Model to edit deleivery */}
 {
@@ -55,20 +55,21 @@ const AdminDeliveries = () => {
   <EditDeliveries handeEditModel={handeEditModel}/>
   </>
 }
-      <table className="min-w-full bg-white mr-[20px] ml-[20px] mt-[30px] border border-gray-200  rounded-lg">
-        <thead className="bg-gray-100">
+      <table className="min-w-full max-w-full bg-white mr-[20px] ml-[20px] mt-[30px] border border-gray-200  rounded-lg">
+        
+        <thead className="bg-gray-50">
           <tr>
-            <th className="px-4 py-2  text-gray-700 text-left">No</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Mineral</th>
-                 <th className="px-4 py-2 text-gray-700 text-left">Supplier</th>
-                        <th className="px-4 py-2 text-gray-700 text-left">Email</th>
-            <th className="px-4 py-2 text-gray-700 text-left"> Date</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Net Weight</th>
-                 <th className="px-4 py-2 text-gray-700 text-left">Batch No</th>
-            <th className="px-4 py-2 text-gray-700 text-left">District</th>
-              <th className="px-4 py-2 text-gray-700 text-left">Province</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Status</th>
-            <th className="px-4 py-2 text-gray-700 text-left">Actions</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mineral</th>
+                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Date</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Net Weight</th>
+                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch No</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">District</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Province</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody>

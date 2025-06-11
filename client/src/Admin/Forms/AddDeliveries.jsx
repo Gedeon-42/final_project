@@ -4,7 +4,7 @@ import axiosClient from '../../axiosClient';
 import { toast, ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
 
-function AddDeliveries({ handleModel }) {
+function AddDeliveries({ fetchOrders,handleModel }) {
     const [suppliers, setSuppliers] = useState([]);
    const [formData, setFormData] = useState({
     supplier_id:"",
@@ -13,7 +13,7 @@ function AddDeliveries({ handleModel }) {
     email: "",
     batch_number: "",
     net_Weight: "",
-    gross_Weight: "",
+    gross_weight:"",
     grade: "",
     status: "",
   });
@@ -49,6 +49,7 @@ function AddDeliveries({ handleModel }) {
     e.preventDefault();
      setLoading(true)
 
+
     try {
       await axiosClient.post("/orders", formData);
     
@@ -56,13 +57,15 @@ function AddDeliveries({ handleModel }) {
       setTimeout(() => {
         handleModel()
       }, 3000);
+      fetchOrders();
+      setLoading(false)
       setFormData({
         supplier_id: "",
         mineral: "",
         date: "",
         email: "",
         batch_number: "",
-        gross_Weight:"",
+        gross_weight:"",
         net_Weight: "",
         grade: "",
     
@@ -155,8 +158,8 @@ function AddDeliveries({ handleModel }) {
             </label>
             <input
               type="text"
-              name="gross_Weight"
-              value={formData.gross_Weight}
+              name="gross_weight"
+              value={formData.gross_weight}
               onChange={handleChange}
               className="w-full p-[5px]  text-[15px] border border-gray-200  rounded"
               placeholder='Gross Weight'
@@ -171,7 +174,7 @@ function AddDeliveries({ handleModel }) {
               name="net_Weight"
               value={formData.net_Weight}
               onChange={handleChange}
-              placeholder='Enter Batch Number'
+              placeholder='Enter Net Weight'
               className="w-full p-[5px]  text-[15px] border border-gray-200 rounded"
             />
           </div>

@@ -1,148 +1,171 @@
-import React, { useState } from 'react';
-import { 
-  User, Bell, Settings, Search, Plus, Eye, MessageCircle, Calendar, 
-  TrendingUp, Users, FileText, DollarSign, Clock, CheckCircle, 
-  XCircle, AlertCircle, Edit, Trash2, Filter, Download, Star,
-  MapPin, Briefcase, Mail, Phone, Globe, Building,
-  
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import RecentRequest from './RecentRequest';
-import Messages from './Messages';
+import React, { useState } from "react";
+import {
+  User,
+  Bell,
+  Settings,
+  Search,
+  Plus,
+  Eye,
+  MessageCircle,
+  Calendar,
+  TrendingUp,
+  Users,
+  FileText,
+  DollarSign,
+  Clock,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Edit,
+  Trash2,
+  Filter,
+  Download,
+  Star,
+  MapPin,
+  Briefcase,
+  Mail,
+  Phone,
+  Globe,
+  Building,
+  Lock,
+  User2,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import RecentRequest from "./RecentRequest";
+import Messages from "./Messages";
+import Request from "./Request";
+import Result from "./Result";
+
+import Setting from "./Setting";
 
 const SupplierDash = () => {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState("overview");
   const [showProfileEdit, setShowProfileEdit] = useState(false);
   const [notifications, setNotifications] = useState(3);
-  
+
   const [profileData, setProfileData] = useState({
-    companyName: 'TechCorp Industries',
-    industry: 'Technology',
-    website: 'www.techcorp.com',
-    location: 'New York, NY',
-    email: 'hiring@techcorp.com',
-    phone: '+1 (555) 123-4567',
-    description: 'Leading technology company focused on innovative solutions and digital transformation.',
-    employeeCount: '500-1000',
-    founded: '2010'
+    companyName: "TechCorp Industries",
+    industry: "Technology",
+    website: "www.techcorp.com",
+    location: "New York, NY",
+    email: "hiring@techcorp.com",
+    phone: "+1 (555) 123-4567",
+    description:
+      "Leading technology company focused on innovative solutions and digital transformation.",
+    employeeCount: "500-1000",
+    founded: "2010",
   });
 
   // Mock data
   const stats = {
     activeRequests: 0,
-    talentViewed:0,
+    talentViewed: 0,
     responseRate: 0,
-    avgResponseTime: '2'
+    avgResponseTime: "2",
   };
 
   const recentRequests = [
     {
       id: 1,
-      talentId: 'T001',
-      position: 'Casual Worker',
-      status: 'pending',
-      submitted: '2024-06-01',
-      budget: '$5000-$7000',
-      responses: 0
+      talentId: "T001",
+      position: "Casual Worker",
+      status: "pending",
+      submitted: "2024-06-01",
+      budget: "$5000-$7000",
+      responses: 0,
     },
     {
       id: 2,
-      talentId: 'T015',
-      position: 'Veterinary',
-      status: 'accepted',
-      submitted: '2024-05-28',
-      budget: '$3000-$4500',
-      responses: 1
+      talentId: "T015",
+      position: "Veterinary",
+      status: "accepted",
+      submitted: "2024-05-28",
+      budget: "$3000-$4500",
+      responses: 1,
     },
     {
       id: 3,
-      talentId: 'T008',
-      position: 'Casual Worker',
-      status: 'declined',
-      submitted: '2024-05-25',
-      budget: '$2500-$3500',
-      responses: 1
+      talentId: "T008",
+      position: "Casual Worker",
+      status: "declined",
+      submitted: "2024-05-25",
+      budget: "$2500-$3500",
+      responses: 1,
     },
     {
       id: 4,
-      talentId: 'T023',
-      position: 'Agronomist',
-      status: 'in_progress',
-      submitted: '2024-05-20',
-      budget: '$6000-$8000',
-      responses: 2
-    }
+      talentId: "T023",
+      position: "Agronomist",
+      status: "in_progress",
+      submitted: "2024-05-20",
+      budget: "$6000-$8000",
+      responses: 2,
+    },
   ];
 
   const conversations = [
     {
       id: 1,
-      talentId: 'T015',
-      position: 'UI/UX Designer',
-      lastMessage: 'I\'d be happy to discuss the project timeline...',
-      timestamp: '2 hours ago',
-      unread: true
+      talentId: "T015",
+      position: "UI/UX Designer",
+      lastMessage: "I'd be happy to discuss the project timeline...",
+      timestamp: "2 hours ago",
+      unread: true,
     },
+
     {
       id: 2,
-      talentId: 'T023',
-      position: 'Full Stack Developer',
-      lastMessage: 'The project requirements look interesting...',
-      timestamp: '1 day ago',
-      unread: false
+      talentId: "T023",
+      position: "Full Stack Developer",
+      lastMessage: "The project requirements look interesting...",
+      timestamp: "1 day ago",
+      unread: false,
     },
     {
       id: 3,
-      talentId: 'T007',
-      position: 'Marketing Manager',
-      lastMessage: 'Thank you for considering my proposal...',
-      timestamp: '3 days ago',
-      unread: false
-    }
+      talentId: "T007",
+      position: "Marketing Manager",
+      lastMessage: "Thank you for considering my proposal...",
+      timestamp: "3 days ago",
+      unread: false,
+    },
   ];
 
-  const savedTalents = [
-    {
-      id: 'T001',
-      skills: ['Fertilizer', 'Management', 'Peciticides'],
-      experience: '5+ years',
-      rating: 4.8,
-      hourlyRate: '$45-65',
-      savedDate: '2024-05-30'
-    },
-    {
-      id: 'T009',
-      skills: ['Fertilizer', 'Management', 'Peciticides'],
-      experience: '4+ years',
-      rating: 4.7,
-      hourlyRate: '$50-70',
-      savedDate: '2024-05-28'
-    }
-  ];
+ 
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'accepted': return 'bg-green-100 text-green-800';
-      case 'declined': return 'bg-red-100 text-red-800';
-      case 'in_progress': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "accepted":
+        return "bg-green-100 text-green-800";
+      case "declined":
+        return "bg-red-100 text-red-800";
+      case "in_progress":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'pending': return <Clock className="w-4 h-4" />;
-      case 'accepted': return <CheckCircle className="w-4 h-4" />;
-      case 'declined': return <XCircle className="w-4 h-4" />;
-      case 'in_progress': return <AlertCircle className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
+      case "pending":
+        return <Clock className="w-4 h-4" />;
+      case "accepted":
+        return <CheckCircle className="w-4 h-4" />;
+      case "declined":
+        return <XCircle className="w-4 h-4" />;
+      case "in_progress":
+        return <AlertCircle className="w-4 h-4" />;
+      default:
+        return <Clock className="w-4 h-4" />;
     }
   };
 
   const handleProfileUpdate = () => {
     setShowProfileEdit(false);
-    alert('Profile updated successfully!');
+    alert("Profile updated successfully!");
   };
 
   const renderOverview = () => (
@@ -152,44 +175,54 @@ const SupplierDash = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Active Requests</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.activeRequests}</p>
+              <p className="text-sm font-medium text-gray-600">
+                Active Requests
+              </p>
+              <p className="text-2xl font-bold text-gray-900">
+                {stats.activeRequests}
+              </p>
             </div>
             <div className="bg-blue-100 p-3 rounded-full">
               <FileText className="w-6 h-6 text-blue-600" />
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Results</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.talentViewed}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {stats.talentViewed}
+              </p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
               <Users className="w-6 h-6 text-green-600" />
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Response Rate</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.responseRate}%</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {stats.responseRate}%
+              </p>
             </div>
             <div className="bg-purple-100 p-3 rounded-full">
               <TrendingUp className="w-6 h-6 text-purple-600" />
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Avg Response</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.avgResponseTime}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {stats.avgResponseTime}
+              </p>
             </div>
             <div className="bg-orange-100 p-3 rounded-full">
               <Clock className="w-6 h-6 text-orange-600" />
@@ -199,82 +232,17 @@ const SupplierDash = () => {
       </div>
 
       {/* Recent Activity */}
-       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RecentRequest recentRequests={recentRequests} getStatusColor={getStatusColor} getStatusIcon={getStatusIcon}/>
-        <Messages conversations={conversations} User={User}/>
-       </div>
-    </div>
-  );
-
-  const renderRequests = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <p className="text-xl font-semibold text-gray-900">My Requests</p>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search requests..."
-              className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
-            <Plus className="w-4 h-4" />
-            <span>New Request</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Talent</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Budget</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {recentRequests.map((request) => (
-                <tr key={request.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm text-gray-900">#{request.talentId}</span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-900">{request.position}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1 w-fit ${getStatusColor(request.status)}`}>
-                      {getStatusIcon(request.status)}
-                      <span>{request.status.replace('_', ' ')}</span>
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-900">{request.budget}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-500">{request.submitted}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center space-x-2">
-                      <button className="text-blue-600 hover:text-blue-800">
-                        <Eye className="w-4 h-4" />
-                      </button>
-                      <button className="text-green-600 hover:text-green-800">
-                        <MessageCircle className="w-4 h-4" />
-                      </button>
-                      <button className="text-gray-600 hover:text-gray-800">
-                        <Edit className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <RecentRequest
+          recentRequests={recentRequests}
+          getStatusColor={getStatusColor}
+          getStatusIcon={getStatusIcon}
+        />
+        <Messages conversations={conversations} User={User} />
       </div>
     </div>
   );
+
 
   const renderMessages = () => (
     <div className="space-y-6">
@@ -298,10 +266,16 @@ const SupplierDash = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <p className="font-medium text-gray-900">Talent #{conv.talentId}</p>
-                      {conv.unread && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
+                      <p className="font-medium text-gray-900">
+                        Talent #{conv.talentId}
+                      </p>
+                      {conv.unread && (
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      )}
                     </div>
-                    <span className="text-sm text-gray-500">{conv.timestamp}</span>
+                    <span className="text-sm text-gray-500">
+                      {conv.timestamp}
+                    </span>
                   </div>
                   <p className="text-sm text-gray-600 mt-1">{conv.position}</p>
                   <p className="text-gray-700 mt-2">{conv.lastMessage}</p>
@@ -314,50 +288,7 @@ const SupplierDash = () => {
     </div>
   );
 
-  const renderSaved = () => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <p className="text-xl font-semibold text-gray-900">Saved Talents</p>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {savedTalents.map((talent) => (
-          <div key={talent.id} className="bg-white rounded-xl shadow-sm p-6">
-            <div className="flex items-center justify-between mb-4">
-              <p className="font-semibold text-gray-900">Talent #{talent.id}</p>
-              <div className="flex items-center space-x-1">
-                <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="text-sm text-gray-600">{talent.rating}</span>
-              </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-2 mb-4">
-              {talent.skills.map((skill, index) => (
-                <span key={index} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded">
-                  {skill}
-                </span>
-              ))}
-            </div>
-            
-            <div className="space-y-2 mb-4">
-              <p className="text-sm text-gray-600">{talent.experience}</p>
-              <p className="text-sm font-medium text-gray-900">{talent.hourlyRate}</p>
-              <p className="text-xs text-gray-500">Saved: {talent.savedDate}</p>
-            </div>
-            
-            <div className="flex space-x-2">
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium">
-                Request
-              </button>
-              <button className="px-3 py-2 border border-gray-200 text-gray-600 hover:text-gray-800 rounded-lg">
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   const renderProfile = () => (
     <div className="space-y-6">
@@ -376,12 +307,19 @@ const SupplierDash = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Company Name
+              </label>
               {showProfileEdit ? (
                 <input
                   type="text"
                   value={profileData.companyName}
-                  onChange={(e) => setProfileData({...profileData, companyName: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({
+                      ...profileData,
+                      companyName: e.target.value,
+                    })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -390,12 +328,16 @@ const SupplierDash = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Industry</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Industry
+              </label>
               {showProfileEdit ? (
                 <input
                   type="text"
                   value={profileData.industry}
-                  onChange={(e) => setProfileData({...profileData, industry: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, industry: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -404,12 +346,16 @@ const SupplierDash = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Website</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Website
+              </label>
               {showProfileEdit ? (
                 <input
                   type="text"
                   value={profileData.website}
-                  onChange={(e) => setProfileData({...profileData, website: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, website: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -421,12 +367,16 @@ const SupplierDash = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Location
+              </label>
               {showProfileEdit ? (
                 <input
                   type="text"
                   value={profileData.location}
-                  onChange={(e) => setProfileData({...profileData, location: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, location: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -440,12 +390,16 @@ const SupplierDash = () => {
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
               {showProfileEdit ? (
                 <input
                   type="email"
                   value={profileData.email}
-                  onChange={(e) => setProfileData({...profileData, email: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, email: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -457,12 +411,16 @@ const SupplierDash = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone
+              </label>
               {showProfileEdit ? (
                 <input
                   type="tel"
                   value={profileData.phone}
-                  onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, phone: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -474,11 +432,18 @@ const SupplierDash = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Employee Count</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Employee Count
+              </label>
               {showProfileEdit ? (
                 <select
                   value={profileData.employeeCount}
-                  onChange={(e) => setProfileData({...profileData, employeeCount: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({
+                      ...profileData,
+                      employeeCount: e.target.value,
+                    })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="1-10">1-10</option>
@@ -491,18 +456,24 @@ const SupplierDash = () => {
               ) : (
                 <div className="flex items-center space-x-2">
                   <Building className="w-4 h-4 text-gray-400" />
-                  <p className="text-gray-900">{profileData.employeeCount} employees</p>
+                  <p className="text-gray-900">
+                    {profileData.employeeCount} employees
+                  </p>
                 </div>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Founded</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Founded
+              </label>
               {showProfileEdit ? (
                 <input
                   type="text"
                   value={profileData.founded}
-                  onChange={(e) => setProfileData({...profileData, founded: e.target.value})}
+                  onChange={(e) =>
+                    setProfileData({ ...profileData, founded: e.target.value })
+                  }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               ) : (
@@ -513,12 +484,16 @@ const SupplierDash = () => {
         </div>
 
         <div className="mt-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Company Description</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Company Description
+          </label>
           {showProfileEdit ? (
             <textarea
               rows={4}
               value={profileData.description}
-              onChange={(e) => setProfileData({...profileData, description: e.target.value})}
+              onChange={(e) =>
+                setProfileData({ ...profileData, description: e.target.value })
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           ) : (
@@ -547,50 +522,52 @@ const SupplierDash = () => {
   );
 
   const navItems = [
-    { id: 'overview', label: 'Overview', icon: TrendingUp },
-    { id: 'requests', label: 'My Requests', icon: FileText },
-    { id: 'messages', label: 'Messages', icon: MessageCircle },
-    { id: 'saved', label: 'Saved Talents', icon: Star },
-    { id: 'profile', label: 'Company Profile', icon: Building }
+    { id: "overview", label: "Overview", icon: TrendingUp },
+    { id: "requests", label: "My Requests", icon: FileText },
+     { id: "results", label: "My Results", icon: FileText },
+    { id: "messages", label: "Messages", icon: MessageCircle },
+    { id: "saved", label: "Settings", icon: Star },
+    { id: "profile", label: "Company Profile", icon: Building },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
-        <nav className="bg-white shadow-sm border-b">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                      <div className="flex justify-between items-center h-16">
-                        <div className="flex items-center space-x-8">
-                        
-                          
-                          <div className="hidden md:flex space-x-6">
-                          {/* <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to='/dashboard'>Dashboard</Link>
+      <nav className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-8">
+              <div className="hidden md:flex space-x-6">
+                {/* <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to='/dashboard'>Dashboard</Link>
                           <Link className='text-decoration-none text-gray-600 hover:text-gray-900'  to="/find-talents">Find Talents</Link> */}
-                          </div>
-                        </div>
-            
-                        <div className="flex items-center space-x-4">
-                          <div className="relative">
-                            <Bell className="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" />
-                            {/* {notifications > 0 && (
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Bell className="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" />
+                {/* {notifications > 0 && (
                               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                 {notifications}
                               </span>
                             )} */}
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <div className="h-8 w-8 bg-green-600 rounded-full flex items-center justify-center">
-                              <User className="h-5 w-5 text-white" />
-                            </div>
-                            <span className="text-sm font-medium text-gray-900"> Gedeon</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </nav>
-   
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="h-8 w-8 bg-green-600 rounded-full flex items-center justify-center">
+                  <User className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-sm font-medium text-gray-900">
+                  {" "}
+                  Gedeon
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Navigation */}
           <div className="lg:w-64">
@@ -603,9 +580,9 @@ const SupplierDash = () => {
                       <button
                         onClick={() => setActiveTab(item.id)}
                         className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
-                          activeTab === item.id 
-                            ? 'bg-blue-100 text-blue-700 font-medium' 
-                            : 'text-gray-600 hover:bg-gray-100'
+                          activeTab === item.id
+                            ? "bg-blue-100 text-blue-700 font-medium"
+                            : "text-gray-600 hover:bg-gray-100"
                         }`}
                       >
                         <Icon className="w-5 h-5" />
@@ -620,11 +597,14 @@ const SupplierDash = () => {
 
           {/* Main Content */}
           <div className="flex-1">
-            {activeTab === 'overview' && renderOverview()}
-            {activeTab === 'requests' && renderRequests()}
-            {activeTab === 'messages' && renderMessages()}
-            {activeTab === 'saved' && renderSaved()}
-            {activeTab === 'profile' && renderProfile()}
+            {activeTab === "overview" && renderOverview()}
+            {activeTab === "requests" && (
+              <Request recentRequests={recentRequests} getStatusColor={getStatusColor} getStatusIcon={getStatusIcon} />
+            )}
+            {activeTab === "results" && <Result recentRequests={recentRequests} getStatusColor={getStatusColor} getStatusIcon={getStatusIcon} />}
+            {activeTab === "messages" && renderMessages()}
+            {activeTab === "saved" && <Setting/>}
+            {activeTab === "profile" && renderProfile()}
           </div>
         </div>
       </div>

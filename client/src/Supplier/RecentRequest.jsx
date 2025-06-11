@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axiosClient from '../axiosClient'
 import { usestateContext } from '../Context/ContextProvider'
 
-function RecentRequest({recentRequests, getStatusIcon,getStatusColor}) {
-const [recentRequestst,setrecentRequests] = useState([])
+function RecentRequest({recentRequestst, getStatusIcon,getStatusColor}) {
+const [recentRequests,setrecentRequests] = useState([])
 const {supplier} = usestateContext()
 
 useEffect(()=>{
@@ -11,8 +11,8 @@ useEffect(()=>{
          if (!supplier || !supplier.id) return; // Guard clause
         try {
              const response  = await axiosClient.get(`/suppliers/${supplier.id}/orders`)
-             setrecentRequests(response.data.orders.data)
-             console.log("Recent requests:", response.data.orders.data)
+             setrecentRequests(response.data.orders)
+             console.log("Recent requests:", response.data.orders)
         } catch (error) {
             console.error("Error fetching recent requests:", error);
         }
@@ -31,14 +31,23 @@ useEffect(()=>{
               <div key={request.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2">
-                    <p className="font-medium text-gray-900">Talent #{request.talentId}</p>
+                    <p className="font-medium text-gray-900">Mineral :{request.mineral}</p>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1 ${getStatusColor(request.status)}`}>
                       {getStatusIcon(request.status)}
                       <span>{request.status.replace('_', ' ')}</span>
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600">{request.position}</p>
-                  <p className="text-xs text-gray-500">{request.budget}</p>
+                  <p>Grade: <span className="text-sm text-gray-600"> {request.grade}</span></p>
+                  
+                  <p>Net Weight:
+                    <span className="text-xs text-gray-500">{request.net_weight}</span>
+                  </p>
+                  
+                  <div>
+                   <p> Date:<span className="text-xs text-gray-500">{request.date}</span>
+                  </p>
+                  </div>  
+                  
                 </div>
               </div>
             ))}

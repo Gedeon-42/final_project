@@ -8,7 +8,7 @@ function DashboardLayout() {
     <div >
 <DashNav/>
 <DashSidebar/>
-<div className='ml-[200px]'>
+<div className='ml-[250px]'>
       <Outlet/>
       </div>  
     </div>

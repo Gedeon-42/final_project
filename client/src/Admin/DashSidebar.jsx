@@ -1,12 +1,13 @@
 import React from 'react'
-import {  FaCoffee, FaDollarSign, FaGalacticRepublic, FaHeading, FaHome, FaUserAlt } from 'react-icons/fa'
+import {  FaCoffee, FaDollarSign, FaGalacticRepublic, FaHeading, FaHome, FaJediOrder, FaUserAlt } from 'react-icons/fa'
 import { SiCloudflareworkers } from 'react-icons/si'
 import { CiSettings } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
+import { ListOrdered } from 'lucide-react'
 
 function DashSidebar() {
   return (
-    <div className='bg-white fixed border-r-1 border-gray-200 top-0 h-[100vh] flex flex-col gap-[20px] p-[10px] w-[200px]'>
+    <div className='bg-white fixed top-0 h-[100vh] flex flex-col gap-[20px] max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-8'>
         <div className='mb-4'>
         <img src="/images/logo1.jpg" className='h-[60px] w-[70px]' alt="" />
         </div>
@@ -15,18 +16,19 @@ function DashSidebar() {
             <Link to="/admin/dashboard" className=' text-[15px] text-gray-600'>Dashboard</Link>
         </div>
         <div className='flex flex-row gap-2 items-center'>
-            <FaCoffee className='text-[15px]'/>
-            <Link to="/admin/deliveries" className='text-[15px]  text-gray-600'>Orders</Link>
+            <FaJediOrder className='text-[15px]'/>
+            <Link to="/admin/deliveries" className='text-[15px]  text-gray-600'>Samples</Link>
         </div>
         <div className='flex flex-row gap-2 items-center'>
        
             <SiCloudflareworkers className='text-[15px]' />
-            <Link to="/admin/result" className='text-[15px]  text-gray-600'>Mineral  Result</Link>
+            <Link to="/admin/result" className='text-[15px]  text-gray-600'>Results</Link>
         </div>
+        
         <div className='flex flex-row gap-2 items-center'>
        
        <FaUserAlt className='text-[15px]' />
-       <Link to="/admin/users" className='text-[15px]  text-gray-600'> Users</Link>
+       <Link to="/admin/users" className='text-[15px]  text-gray-600'>Suppliers</Link>
    </div>
    <div className='flex flex-row gap-2 items-center'>
        

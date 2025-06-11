@@ -3,7 +3,7 @@ import { FaBell, FaSearch, FaUser } from 'react-icons/fa'
 
 function DashNav() {
   return (
-    <div className='bg-[#f8f9fa] shadow-2xs sticky top-0  z-50 p-4 ml-[200px] flex justify-between items-center'>
+    <div className='bg-[#f8f9fa] shadow-2xs sticky top-0  z-50 p-4 ml-[250px] flex justify-between items-center'>
         <div>
             
         </div>
