@@ -36,6 +36,7 @@ Route::get('/suppliers/{supplierId}/orders', [OrderController::class, 'ordersByS
 
 Route::put('/orders/{id}',[OrderController::class, 'update']);
 Route::delete('/orders/{id}',[OrderController::class, 'destroy']);
+Route::get('/orders/total',[OrderController::class, 'getTotalOrders']);
 Route::post('/orders/{id}/approve',[OrderController::class, 'approve']);
 Route::post('/orders/{id}/reject',[OrderController::class, 'reject']);
 Route::post('/orders/{id}/complete',[OrderController::class, 'complete']);
@@ -44,7 +45,7 @@ Route::post('/orders/{id}/complete',[OrderController::class, 'complete']);
 Route::post('/results',[ResultController::class, 'store']);
 //  Route::post('/results/{delivery_id}', [ResultController::class, 'store']);
 Route::get('/results',[ResultController::class, 'index']);
-Route::get('/results/{id}',[ResultController::class, 'show']);
+Route::get('/suppliers/{supplierId}/results', [ResultController::class, 'resultsBySupplier']);
 Route::put('/results/{id}',[ResultController::class, 'update']);
 Route::delete('/results/{id}',[ResultController::class, 'destroy']);
 

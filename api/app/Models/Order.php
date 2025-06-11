@@ -22,4 +22,5 @@ public function result()
 {
     return $this->hasOne(Result::class);
 }
+
 }

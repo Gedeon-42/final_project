@@ -49,12 +49,19 @@ class ResultController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-        $result= Result::findOrFail($id);
-        return response()->json($result);
-    }
+  public function resultsBySupplier($supplierId)
+{
+    $orders = Result::where('supplier_id', $supplierId)
+        ->orderBy('id', 'desc')
+        ->with('supplier')
+        ->get();
+
+    
+    return response()->json([
+        'message' => 'Result for supplier retrieved successfully',
+        'orders' => $orders
+    ]);
+}
 
     /**
      * Update the specified resource in storage.

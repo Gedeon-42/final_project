@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('mineral');
             $table->date('date');
-            $table->string('owner');
+       
             $table->string('email');
             $table->string('batch_number');
             $table->string('methodology');
