@@ -42,7 +42,7 @@ $randomPassword = str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
     ]);
 
     // Optionally email credentials
-    Mail::to($supplier->email)->send(new SupplierCredentialsMail($validated['email'], $randomPassword));
+    Mail::to($supplier->email)->send(new SupplierCredentialsMail($validated['email'],$randomPassword ,$validated['name'] ));
 
     return response()->json(['message' => 'Supplier registered successfully']);
 }

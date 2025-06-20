@@ -16,15 +16,17 @@ class SupplierCredentialsMail extends Mailable
     
     public $email;
     public $password;
+    public $name;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($email,$password)
+    public function __construct($email,$password, $name)
     {
         //
         $this->email = $email;
         $this->password = $password;
+        $this->name = $name;
     }
 
     /**

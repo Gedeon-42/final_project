@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
@@ -23,10 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
 Route::post('/supplier/register', [SupplierAuthController::class, 'register']); // By admin
-Route::post('/supplier/login', [SupplierAuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']); // By admin
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/suppliers', [SupplierAuthController::class, 'index']); 
 
 Route::post('/orders',[OrderController::class, 'store']);
