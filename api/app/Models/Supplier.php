@@ -13,7 +13,7 @@ class Supplier extends Model
     use  HasApiTokens, HasFactory;
 
 
-    protected $fillable = ['name', 'email', 'phone', 'password','district','province'];
+    protected $fillable = ['name', 'email', 'license_number','phone', 'password','district','province'];
     public function orders()
 {
     return $this->hasMany(Order::class);

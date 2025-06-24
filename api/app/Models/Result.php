@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Result extends Model
 {
     use HasFactory;
-    protected $fillable = ['mineral', 'date', 'supplier_id', 'email', 'batch_number', 'methodology', 'net_Weight', 'technician', 'grade', 'status'];
+    protected $fillable = ['mineral', 'date', 'supplier_id', 'email', 'batch_number', 'methodology', 'net_Weight', 'technician','supervisor','security', 'grade', 'status'];
 
 
     public function delivery()

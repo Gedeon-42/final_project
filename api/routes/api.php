@@ -8,6 +8,7 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierAuthController;
+use LDAP\Result;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,15 @@ use App\Http\Controllers\SupplierAuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group( function () {
+// Add this line to your routes/api.php
+Route::post('/supplier/change-password', [SupplierAuthController::class, 'changePassword'])->middleware('auth:sanctum');
 });
+
+
+
+Route::post('supplier/forgot-password', [SupplierAuthController::class, 'forgotPassword']);
+Route::post('supplier/reset-password', [SupplierAuthController::class, 'resetPassword']);
 
 Route::post('/supplier/register', [SupplierAuthController::class, 'register']); // By admin
 Route::post('/register', [AuthController::class, 'register']); // By admin
@@ -42,12 +49,18 @@ Route::post('/orders/{id}/reject',[OrderController::class, 'reject']);
 Route::post('/orders/{id}/complete',[OrderController::class, 'complete']);
 
 // Result Routes
+
+
+// routes/web.php or routes/api.php
+Route::get('/results/{id}/download-pdf', [ResultController::class, 'downloadResultPdf']);
 Route::post('/results',[ResultController::class, 'store']);
 //  Route::post('/results/{delivery_id}', [ResultController::class, 'store']);
 Route::get('/results',[ResultController::class, 'index']);
 Route::get('/suppliers/{supplierId}/results', [ResultController::class, 'resultsBySupplier']);
 Route::put('/results/{id}',[ResultController::class, 'update']);
 Route::delete('/results/{id}',[ResultController::class, 'destroy']);
+Route::get('/results/total',[ResultController::class, 'getTotalResults']);
+Route::get('/suppliers/total',[ResultController::class, 'getTotalSuppliers']);
 
 // Payment Routes
 Route::post('/payment',[PaymentController::class, 'store']);

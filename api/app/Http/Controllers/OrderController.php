@@ -48,6 +48,7 @@ class OrderController extends Controller
         'orders' => $orders
     ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.

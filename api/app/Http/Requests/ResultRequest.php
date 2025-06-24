@@ -33,6 +33,9 @@ class ResultRequest extends FormRequest
             'net_Weight' => "required|string",
             'grade' => "required|string",
             'technician'=>'nullable|string',
+            'supervisor'=>'nullable|string',
+            'security'=>'nullable|string',
+            
             'status' => 'required|string'
         ];
     }
