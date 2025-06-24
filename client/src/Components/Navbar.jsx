@@ -11,8 +11,13 @@ function Navbar() {
             <div className="flex items-center space-x-2">
              <img className='w-16 h-10 object-cover' src="/images/logo1.jpg" alt="" />
             </div>
+            <nav className="flex space-x-6">
+              <Link>Home</Link>
+              <Link>About</Link>
+              <Link>Contact</Link>
+            </nav>
             <nav className="hidden md:flex space-x-8">
-                       <Link to="/login" className="bg-gradient-to-r from-green-900 to-green-800 rounded-[5px] text-white px-2 py-2">Login</Link>
+                       <Link to="/login" className="border-1 border-green-900 text-black px-2 py-1 rounded-[5px]">Sign In</Link>
               {/* <Link  to="/" className="border-1 border-green-900 text-black px-2 py-2 rounded-[5px]">Register</Link> */}
 
             </nav>

@@ -3,10 +3,10 @@ import { BarChart3, Calendar, Leaf, MapPin, Shield, TrendingUp } from 'lucide-re
 function Features() {
   return (
    <>
-        <section id="features" className="py-20 px-20 bg-white">
+        <section id="features" className="py-10 px-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Everything You Need for Modern Digital Mineral Result
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
