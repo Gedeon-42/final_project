@@ -5,14 +5,14 @@ import axiosClient from '../axiosClient'
 
 function Request({getStatusColor,getStatusIcon}) {
     const [recentRequests,setrecentRequests] = useState([])
-const {supplier} = usestateContext()
+const {user} = usestateContext()
 
 useEffect(()=>{
 
      const fetchRecentRequests = async () => {
-         if (!supplier || !supplier.id) return; // Guard clause
+         if (!user || !user.id) return; // Guard clause
         try {
-             const response  = await axiosClient.get(`/suppliers/${supplier.id}/orders`)
+             const response  = await axiosClient.get(`/suppliers/${user.id}/orders`)
              setrecentRequests(response.data.orders)
              console.log("Recent requests:", response.data.orders)
         } catch (error) {
@@ -22,7 +22,7 @@ useEffect(()=>{
      fetchRecentRequests()
 }
 
-,[supplier])
+,[user])
 
   return (
      <div className="space-y-6">

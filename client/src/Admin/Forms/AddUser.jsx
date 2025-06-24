@@ -4,12 +4,13 @@ import axiosClient from "../../axiosClient";
 import { toast, ToastContainer } from "react-toastify";
 
 import {ClipLoader} from 'react-spinners';
-function AddUser({ handleModel }) {
+function AddUser({ handleModel, fetchSuppliers}) {
   // State to manage form data
   const [formData, setFormData] = useState({
     email: "",
     name: "",
     phone:"",
+    license_number: "",
  district:"",
     province:""
   });
@@ -36,12 +37,14 @@ function AddUser({ handleModel }) {
         email: "",
         name:"",
         phone:"",
+        license_number: "",
         district:"",
         province:""
       });
       setTimeout(() => {
         handleModel()
       }, 4000);
+      fetchSuppliers()
     } catch (error) {
       toast.error("Failed to Register User.");
       setLoading(false)
@@ -57,7 +60,7 @@ function AddUser({ handleModel }) {
       {/* Modal content */}
       <form
         onSubmit={handleSubmit}
-        className="relative z-[60] space-y-4 bg-white p-6 rounded shadow-lg w-full max-w-md "
+        className="relative z-[60] space-y-4 w-[45%] bg-white h-[80vh] overflow-y-auto p-6 rounded shadow-lg "
       >
         <FaTimes
           className="absolute top-4 right-4 text-gray-500 cursor-pointer"
@@ -91,6 +94,19 @@ function AddUser({ handleModel }) {
                 className="w-full p-[5px] border border-gray-400  rounded"
               />
             </div>
+                  <div>
+              <label className="block  text-[15px] font-semibold mb-1">
+                License Number <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="license_number"
+                value={formData.license_number || ""}
+                onChange={handleChange}
+                placeholder="License Number"
+                className="w-full p-[5px] border border-gray-400  rounded"
+              />
+            </div>
               <div>
               <label className="block  text-[15px] font-semibold mb-1">
                 Phone <span className="text-red-500">*</span>
@@ -110,7 +126,7 @@ function AddUser({ handleModel }) {
               </label>
               <input
                 type="text"
-                placeholder="Enter Phone"
+                placeholder="Enter District"
                 onChange={handleChange}
                 value={formData.district}
                 name="district"

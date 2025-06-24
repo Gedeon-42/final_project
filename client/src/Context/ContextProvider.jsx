@@ -13,12 +13,9 @@ const stateContext = createContext({
 
 export const ContextProvider = ({ children }) => {
   const [token, _setToken] = useState(localStorage.getItem("Token"));
-  const [supplier, setUser] = useState(JSON.parse(localStorage.getItem("Supplier")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   const apiUrl= env.REACT_APP_API_URL
-
-  
-
   const setToken = (token) => {
     _setToken(token);
     if (token) {
@@ -28,12 +25,12 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  const setUserState = (supplier) => {
-    setUser(supplier);
-    if (supplier) {
-      localStorage.setItem("Supplier", JSON.stringify(supplier));
+  const setUserState = (user) => {
+    setUser(user);
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
-      localStorage.removeItem("Supplier");
+      localStorage.removeItem("user");
     }
   };
   const SignupMutation = useMutation({
@@ -49,20 +46,20 @@ export const ContextProvider = ({ children }) => {
     },
     onSuccess: (data) => {
       console.log("Signup success:", data);
-      // setUserState(data.user);
+       setUserState(data.user);
       setToken(data.token);
       // setToken(data.token);
-      if (data.user.is_admin === 1) {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/";
-      }
+        if (data.role === "supplier") {
+      window.location.href = "/supplier/dash";
+    } else {
+      window.location.href = "/admin/dashboard";
+    }
     },
   });
 
   const LoginMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await axiosClient .post("/supplier/login", data);
+      const res = await axiosClient .post("/login", data);
       return res.data;
     },
     onError: (err) => {
@@ -80,9 +77,13 @@ export const ContextProvider = ({ children }) => {
     },
     onSuccess: (data) => {
       console.log("Login success:", data);
-      setUserState(data.supplier);
+      setUserState(data.user);
       setToken(data.token);
-    window.location.href = "/supplier/dash";
+        if (data.role === "supplier") {
+      window.location.href = "/supplier/dash";
+    } else {
+      window.location.href = "/admin/dashboard";
+    }
     },
   });
 
@@ -91,7 +92,8 @@ export const ContextProvider = ({ children }) => {
       value={{
         token,
         setToken,
-        supplier,
+        user,
+
         setUser: setUserState,
         SignupMutation,
         LoginMutation,

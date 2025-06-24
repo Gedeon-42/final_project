@@ -6,14 +6,14 @@ import axiosClient from '../axiosClient'
 function Result({getStatusColor,getStatusIcon}) {
 
       const [recentRequests,setrecentRequests] = useState([])
-const {supplier} = usestateContext()
+const {user} = usestateContext()
 
 useEffect(()=>{
 
      const fetchRecentRequests = async () => {
-         if (!supplier || !supplier.id) return; // Guard clause
+         if (!user || !user.id) return; // Guard clause
         try {
-             const response  = await axiosClient.get(`/suppliers/${supplier.id}/results`)
+             const response  = await axiosClient.get(`/suppliers/${user.id}/results`)
              setrecentRequests(response.data.orders)
              console.log("Recent requests:", response.data.orders)
         } catch (error) {
@@ -23,7 +23,10 @@ useEffect(()=>{
      fetchRecentRequests()
 }
 
-,[supplier])
+,[user])
+const handleDownloadPdf = (resultId) => {
+  window.open(`http://localhost:8000/api/results/${resultId}/download-pdf`, '_blank');
+};
   return (
      <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -37,7 +40,11 @@ useEffect(()=>{
               className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+          <button   onClick={() => {
+    if (recentRequests.length > 0) {
+      handleDownloadPdf(recentRequests[0].id); // or let user pick which result to download
+    }
+  }} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
             <Download className="w-4 h-4" />
             <span>Download Pdf</span>
           </button>

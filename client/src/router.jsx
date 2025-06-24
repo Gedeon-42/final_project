@@ -20,6 +20,10 @@ import NotFound from "./pages/NotFound";
 import AdminPayment from "./Admin/AdminPayment";
 import DashUsers from "./Admin/DashUsers";
 import SupplierDash from "./Supplier/SupplierDash";
+import App from "./App";
+import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword";
+import ChangePasswordForm from "./pages/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -43,21 +47,21 @@ const router = createBrowserRouter([
         element: <AdminReport />,
       },
       {
-        path:"/admin/result",
-        element:<AdminResult/>
+        path: "/admin/result",
+        element: <AdminResult />,
       },
       {
-        path:"/admin/users",
-        element:<DashUsers/>
+        path: "/admin/users",
+        element: <DashUsers />,
       },
       {
         path: "/admin/help",
-        element:<AdminHelp/>
+        element: <AdminHelp />,
       },
       {
-        path:"/admin/payment",
-        element:<AdminPayment/>
-      }
+        path: "/admin/payment",
+        element: <AdminPayment />,
+      },
     ],
   },
 
@@ -69,7 +73,7 @@ const router = createBrowserRouter([
         path: "/supplier/dashboard",
         element: <SupplierDashboard />,
       },
-    
+
       {
         path: "/supplier/delivery",
         element: <DeliveryTracking />,
@@ -97,21 +101,37 @@ const router = createBrowserRouter([
     ],
   },
 
-    {
-        path:"/supplier/dash",
-        element:<SupplierDash/>
-      },
+  {
+    path: "/supplier/dash",
+    element: <SupplierDash />,
+  },
   {
     path: "/",
+    element: <App />,
+  },
+  {
+    path: "/login",
     element: <Login />,
+  },
+  {
+path:"/reset-password",
+element:<ResetPassword/>
+  },
+    {
+path:"/change-password",
+element:<ChangePasswordForm/>
+  },
+  {
+    path:"/forgot-password",
+    element:<ForgotPassword/>
   },
   {
     path: "/register",
     element: <Register />,
   },
   {
-    path:"*",
-    element:<NotFound/>
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

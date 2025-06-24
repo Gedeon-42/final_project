@@ -22,6 +22,7 @@ function Login() {
         newErrors.email = "email is required";
     }
 
+    
     if (!password) {
         valid = false;
         newErrors.password = "password is required";
@@ -48,7 +49,7 @@ const handlesubmit = (e) => {
     <div className="bg-[url(/images/project2.jpg)] bg-no-repeat bg-cover flex h-screen justify-center items-center ">
       <div className="bg-white p-8 flex flex-col rounded shadow-md w-96">
 
-<div className="flex flex-col items-center justify-center bg-green-600 p2 w-10 h-10 rounded m-auto text-white font-bold text-2xl mb-4"> 
+<div className="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 p2 w-10 h-10 rounded m-auto text-white font-bold text-2xl mb-4"> 
     <FiLogIn className="text-white text-center text-[20px]"/>
 </div>
 <div className="flex flex-col gap-[10px] items-center justify-center mb-[20px]">
@@ -69,10 +70,10 @@ const handlesubmit = (e) => {
     </div>
 
     <div className="relative flex items-center">
-        <Link className="absolute right-0 ">Forgot PassWord ?</Link>
+        <Link to="/forgot-password" className="absolute right-0 ">Forgot PassWord ?</Link>
     </div>
 
-    <button className="bg-green-600 cursor-pointer text-white p-[7px] rounded-[5px]">
+    <button className=" bg-emerald-600 hover:bg-emerald-700  cursor-pointer text-white p-[7px] rounded-[5px]">
         {loading ? (
             <ClipLoader size={20} color={"#ffffff"} />
           ) : (

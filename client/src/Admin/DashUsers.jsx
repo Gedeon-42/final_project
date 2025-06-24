@@ -27,14 +27,19 @@ const DashUsers = () => {
   const handleViewModel = () => {
     setViewModel(!viewModel);
   };
+  const fetchSuppliers = async()=>{
+try {
+  
+  const response = await axiosClient.get('/suppliers');
+  setSuppliers(response.data);
+  setLoading(false)
+} catch (error) {
+  console.error('Error fetching orders:', error);
+}
+}
   useEffect(() => {
-    axiosClient
-      .get("suppliers")
-      .then((res) => {
-        setSuppliers(res.data);
-        setLoading(false)
-      })
-      .catch((err) => console.error("Error fetching suppliers:", err));
+
+fetchSuppliers()
   }, []);
 
  if (loading) {
@@ -56,7 +61,7 @@ const DashUsers = () => {
 
       {model && (
         <>
-          <AddUser handleModel={handleModel} />
+          <AddUser fetchSuppliers={fetchSuppliers} handleModel={handleModel} />
         </>
       )}
       {/* Model to edit deleivery */}

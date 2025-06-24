@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { 
   User, Bell, Settings, Search, Plus, Eye, MessageCircle, Calendar, 
   TrendingUp, Users, FileText, DollarSign, Clock, CheckCircle, 
-  XCircle, AlertCircle, Edit, Trash2, Filter, Download, Star,
-  MapPin, Briefcase, Mail, Phone, Globe, Building,
+ 
   
 } from 'lucide-react';
 import {
@@ -25,19 +24,20 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 import { FaCaretUp, FaDollarSign } from "react-icons/fa";
 import axiosClient from "../axiosClient";
+import RecentSamples from "./RecentSamples";
 const barData = [
-  { name: "january", expense: 300 },
-  { name: "February", expense: 519 },
-  { name: "March", expense: 200 },
-  { name: "April", expense: 500 },
-  { name: "May", expense: 600 },
-  { name: "June", expense: 300 },
-  { name: "July", expense: 460 },
-  { name: "August", expense: 700 },
-  { name: "September", expense: 300 },
-  { name: "October", expense: 180 },
-  { name: "November", expense: 180 },
-  { name: "December", expense: 455 }
+  { name: "january", result: 300 },
+  { name: "February", result: 519 },
+  { name: "March", result: 200 },
+  { name: "April", result: 500 },
+  { name: "May", result: 600 },
+  { name: "June", result: 300 },
+  { name: "July", result: 460 },
+  { name: "August", result: 700 },
+  { name: "September", result: 300 },
+  { name: "October", result: 180 },
+  { name: "November", result: 180 },
+  { name: "December", result: 455 }
 ];
 
 const lineData = [
@@ -73,6 +73,8 @@ const COLORS = ["#22c55e", "#ef4444", "#0ea5e9"];
 
 const Dashboard = () => {
  const [totalTalents, setTotalTalents] = useState(0);
+ const[totalSamples,setTotalSamples] = useState(0)
+ const[totalSuppliers,setTotalSuppliers] = useState(0)
 
     useEffect(() => {
         axiosClient
@@ -85,7 +87,27 @@ const Dashboard = () => {
             .catch((error) => console.error(error));
     }, []);
 
+        useEffect(() => {
+        axiosClient
+            .get("/results/total")
+            .then((response) => {
+                setTotalSamples(response.data);
+                console.log("Total Talents:", response.data);
+              
+            })
+            .catch((error) => console.error(error));
+    }, []);
 
+           useEffect(() => {
+        axiosClient
+            .get("/suppliers/total")
+            .then((response) => {
+                setTotalSuppliers(response.data);
+                console.log("Total suppliers:", response.data);
+              
+            })
+            .catch((error) => console.error(error));
+    }, []);
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
  <div className="space-y-6">
@@ -107,7 +129,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600"> Active Results</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.talentViewed}</p>
+              <p className="text-2xl font-bold text-gray-900">{totalSamples.total_results}</p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
               <Users className="w-6 h-6 text-green-600" />
@@ -119,7 +141,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Active Suppliers</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.responseRate}%</p>
+              <p className="text-2xl font-bold text-gray-900">{totalSuppliers.total_suppliers}</p>
             </div>
             <div className="bg-purple-100 p-3 rounded-full">
               <TrendingUp className="w-6 h-6 text-purple-600" />
@@ -153,49 +175,13 @@ const Dashboard = () => {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="expense" barSize={10} radius={[10, 10, 0, 0]} fill="#22c55e" />
+              <Bar dataKey="result" barSize={10} radius={[10, 10, 0, 0]} fill="#22c55e" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Recent Expenses */}
-        <div className="bg-white w-[30%] p-4 rounded-2xl shadow">
-          <h2 className="text-lg font-semibold mb-4">Recent Deliveries</h2>
-          <ul className="space-y-4">
-            <li className="flex justify-between text-sm">
-              <div>
-              <span>Fridge</span>
-              <p className="text-gray-500">21 january</p>
-              </div>
-             
-              <span className="font-medium">$550</span>
-            </li>
-            <li className="flex justify-between text-sm">
-              <div>
-              <span>Internet Bill</span>
-              <p className="text-gray-500">23 February</p>
-              </div>
-            
-              <span className="font-medium">$17</span>
-            </li>
-            <li className="flex justify-between text-sm">
-            <div>
-              <span>Casetelite </span>
-              <p className="text-gray-500">22 March</p>
-              </div>
-  
-              <span className="font-medium">$96</span>
-            </li>
-            <li className="flex justify-between text-sm">
-            <div>
-              <span>Copper Bill</span>
-              <p className="text-gray-500">23 February</p>
-              </div>
-              
-              <span className="font-medium">$11</span>
-            </li>
-          </ul>
-        </div>
+     <RecentSamples/>
 
 </div>
 <div className="flex gap-5 mt-4 w-[100%]">

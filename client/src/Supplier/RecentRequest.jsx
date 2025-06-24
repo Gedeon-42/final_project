@@ -4,13 +4,13 @@ import { usestateContext } from '../Context/ContextProvider'
 
 function RecentRequest({recentRequestst, getStatusIcon,getStatusColor}) {
 const [recentRequests,setrecentRequests] = useState([])
-const {supplier} = usestateContext()
+const {user} = usestateContext()
 
 useEffect(()=>{
      const fetchRecentRequests = async () => {
-         if (!supplier || !supplier.id) return; // Guard clause
+          if (!user || !user.id) return; // Guard clause
         try {
-             const response  = await axiosClient.get(`/suppliers/${supplier.id}/orders`)
+             const response  = await axiosClient.get(`/suppliers/${user.id}/orders`)
              setrecentRequests(response.data.orders)
              console.log("Recent requests:", response.data.orders)
         } catch (error) {
@@ -20,12 +20,12 @@ useEffect(()=>{
      fetchRecentRequests()
 }
 
-,[supplier])
+,[user])
 
   return (
    
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <p className="text-lg font-semibold text-gray-900 mb-4">Recent Requests</p>
+          <p className="text-lg font-semibold text-gray-900 mb-4">Recent Samples</p>
           <div className="space-y-4">
             {recentRequests?.map((request) => (
               <div key={request.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg">

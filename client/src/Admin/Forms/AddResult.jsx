@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import axiosClient from "../../axiosClient";
 import { toast, ToastContainer } from "react-toastify";
-function AddResult({ handleModel }) {
+function AddResult({ handleModel,fetchResults }) {
   const [suppliers, setSuppliers] = useState([]);
   // State to manage form data
   const [formData, setFormData] = useState({
@@ -10,6 +10,8 @@ function AddResult({ handleModel }) {
     mineral: "",
     date: "",
     email: "",
+    security:"",
+    supervisor:"",
     batch_number: "",
     methodology: "",
     net_Weight: "",
@@ -48,7 +50,6 @@ function AddResult({ handleModel }) {
 
     try {
       await axiosClient.post("/results", formData);
-
       toast.success("Recorded submitted successfully!");
       setFormData({
         supplier_id: "",
@@ -60,10 +61,15 @@ function AddResult({ handleModel }) {
         net_Weight: "",
         grade: "",
         technician: "",
+        security: "",
+        supervisor: "",
         status: "",
       });
 
-      // handleModel()
+    setTimeout(() => {
+      handleModel()
+      fetchResults()
+    }, 4000);
     } catch (error) {
       toast.error("Error submitting result!");
       console.error(error);
@@ -176,7 +182,27 @@ function AddResult({ handleModel }) {
                 />
               </div>
             </div>
+
+             <div>
+              <label className="block text-[15px] font-semibold mb-1">
+                Status <span className="text-red-500">*</span>
+              </label>
+              <select
+                name="status"
+                onChange={handleChange}
+                value={formData.status}
+                className="w-full p-[7px] bg-gray-100 rounded"
+              >
+                <option value="">Select</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
           </div>
+
+
+
           <div className="flex flex-col w-[50%] gap-[20px]">
             <div>
               <label className="block text-[15px] font-semibold mb-1">
@@ -221,22 +247,34 @@ function AddResult({ handleModel }) {
                 className="w-full p-[5px] border-gray-400 border rounded"
               />
             </div>
-            <div>
+              <div>
               <label className="block text-[15px] font-semibold mb-1">
-                Status <span className="text-red-500">*</span>
+                Name Of SuperVisor
               </label>
-              <select
-                name="status"
+              <input
+                name="supervisor"
+                type="text"
                 onChange={handleChange}
-                value={formData.status}
-                className="w-full p-[7px] bg-gray-100 rounded"
-              >
-                <option value="">Select</option>
-                <option value="Pending">Pending</option>
-                <option value="Completed">Completed</option>
-                <option value="Rejected">Rejected</option>
-              </select>
+                value={formData.supervisor}
+                placeholder="Name Of SuperVisor"
+                className="w-full p-[5px] border-gray-400 border rounded"
+              />
             </div>
+
+              <div>
+              <label className="block text-[15px] font-semibold mb-1">
+                Name Of Security Observer
+              </label>
+              <input
+                name="security"
+                type="text"
+                onChange={handleChange}
+                value={formData.security}
+                placeholder="Name Of Security Observer"
+                className="w-full p-[5px] border-gray-400 border rounded"
+              />
+            </div>
+           
             <div>
               <button className="bg-green-600 cursor-pointer text-white p-[7px] rounded">
                 Save

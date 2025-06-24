@@ -148,6 +148,7 @@ const SupplierDash = () => {
     }
   };
 
+
   const getStatusIcon = (status) => {
     switch (status) {
       case "pending":
@@ -232,13 +233,13 @@ const SupplierDash = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
         <RecentRequest
           recentRequests={recentRequests}
           getStatusColor={getStatusColor}
           getStatusIcon={getStatusIcon}
         />
-        <Messages conversations={conversations} User={User} />
+      
       </div>
     </div>
   );
@@ -294,13 +295,13 @@ const SupplierDash = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <p className="text-xl font-semibold text-gray-900">Company Profile</p>
-        <button
-          onClick={() => setShowProfileEdit(!showProfileEdit)}
+        <Link
+      to="/change-password"
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
         >
           <Edit className="w-4 h-4" />
-          <span>Edit Profile</span>
-        </button>
+          <span>Change Password</span>
+        </Link>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm p-6">
@@ -523,11 +524,11 @@ const SupplierDash = () => {
 
   const navItems = [
     { id: "overview", label: "Overview", icon: TrendingUp },
-    { id: "requests", label: "My Requests", icon: FileText },
+    { id: "requests", label: "My Samples", icon: FileText },
      { id: "results", label: "My Results", icon: FileText },
-    { id: "messages", label: "Messages", icon: MessageCircle },
+    // { id: "messages", label: "Messages", icon: MessageCircle },
     { id: "saved", label: "Settings", icon: Star },
-    { id: "profile", label: "Company Profile", icon: Building },
+    { id: "profile", label: "Profile", icon: Building },
   ];
 
   return (
@@ -602,7 +603,7 @@ const SupplierDash = () => {
               <Request recentRequests={recentRequests} getStatusColor={getStatusColor} getStatusIcon={getStatusIcon} />
             )}
             {activeTab === "results" && <Result recentRequests={recentRequests} getStatusColor={getStatusColor} getStatusIcon={getStatusIcon} />}
-            {activeTab === "messages" && renderMessages()}
+            {/* {activeTab === "messages" && renderMessages()} */}
             {activeTab === "saved" && <Setting/>}
             {activeTab === "profile" && renderProfile()}
           </div>

@@ -30,11 +30,11 @@ function DashSidebar() {
        <FaUserAlt className='text-[15px]' />
        <Link to="/admin/users" className='text-[15px]  text-gray-600'>Suppliers</Link>
    </div>
-   <div className='flex flex-row gap-2 items-center'>
+   {/* <div className='flex flex-row gap-2 items-center'>
        
        <FaHeading className='text-[15px]' />
        <Link to="/admin/help" className='text-[15px]  text-gray-600'>Help And Support</Link>
-   </div>
+   </div> */}
         <div className='flex flex-row gap-2 items-center'>
        
        <FaDollarSign className='text-[15px]' />
